@@ -2,8 +2,8 @@ package ru.tinkoff.edu.java.url.test;
 
 import org.junit.jupiter.api.Test;
 import ru.tinkoff.edu.java.url.LinkParser;
-import ru.tinkoff.edu.java.url.impl.GitHubLink;
-import ru.tinkoff.edu.java.url.impl.StackOverflowLink;
+import ru.tinkoff.edu.java.url.link.GitHubLink;
+import ru.tinkoff.edu.java.url.link.StackOverflowLink;
 
 import static org.junit.jupiter.api.Assertions.*;
 

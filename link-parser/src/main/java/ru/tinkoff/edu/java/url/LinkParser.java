@@ -1,12 +1,16 @@
 package ru.tinkoff.edu.java.url;
 
-import ru.tinkoff.edu.java.url.impl.GitHubLink;
-import ru.tinkoff.edu.java.url.impl.StackOverflowLink;
+import ru.tinkoff.edu.java.url.link.Link;
+import ru.tinkoff.edu.java.url.link.matcher.GitHubLinkMatcher;
+import ru.tinkoff.edu.java.url.link.matcher.LinkMatcher;
+import ru.tinkoff.edu.java.url.link.matcher.StackOverflowLinkMatcher;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class LinkParser {
     private static final Map<String, LinkMatcher> registered = new HashMap<>();
@@ -16,24 +20,21 @@ public class LinkParser {
     }
 
     static { // register default
-        registerMatcher("github", new GitHubLink.Matcher());
-        registerMatcher("stackoverflow", new StackOverflowLink.Matcher());
+        registerMatcher("github", new GitHubLinkMatcher());
+        registerMatcher("stackoverflow", new StackOverflowLinkMatcher());
     }
 
     public static Link parseLink(String url) {
         try {
             if (url == null || !url.equals(URLDecoder.decode(url, StandardCharsets.UTF_8))) {
-                return null;
+                throw new IllegalArgumentException("Link is invalid");
             }
-        } catch (IllegalArgumentException ignored) {
+            return registered.values().stream()
+                    .map(parser -> parser.matchLink(url))
+                    .filter(Objects::nonNull)
+                    .findFirst().orElseThrow();
+        } catch (IllegalArgumentException | NoSuchElementException ignored) {
             return null;
         }
-        for (var parser : registered.values()) {
-            var result = parser.matchLink(url);
-            if (result != null) {
-                return result;
-            }
-        }
-        return null;
     }
 }
