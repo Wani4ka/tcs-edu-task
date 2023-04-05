@@ -18,12 +18,12 @@ public class ClientConfiguration {
     }
 
     @Bean
-    public GitHubClient getGitHubClient(GitHubProperties props) {
-        return buildWebClient(GitHubClient.class, props.getBaseUrl());
+    public GitHubClient getGitHubClient(ApplicationConfig config) {
+        return buildWebClient(GitHubClient.class, config.github().getBaseUrl());
     }
 
     @Bean
-    public StackOverflowClient getStackOverflowClient(StackOverflowProperties props) {
-        return buildWebClient(StackOverflowClient.class, props.getBaseUrl());
+    public StackOverflowClient getStackOverflowClient(ApplicationConfig config) {
+        return buildWebClient(StackOverflowClient.class, config.stackoverflow().getBaseUrl());
     }
 }
