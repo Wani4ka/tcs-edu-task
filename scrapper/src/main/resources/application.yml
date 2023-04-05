@@ -1,0 +1,10 @@
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+
+github:
+  baseUrl: https://api.github.com
+
+stackoverflow:
+  baseUrl: https://api.stackexchange.com/2.3
