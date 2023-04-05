@@ -1,0 +1,7 @@
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+app:
+  telegram:
+    token: ${TG_BOT_TOKEN}
