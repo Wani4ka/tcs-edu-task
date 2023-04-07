@@ -3,7 +3,6 @@ package ru.tinkoff.edu.java.bot.processor;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.command.CommandBase;
 
@@ -15,10 +14,13 @@ public class TelegramProcessor extends BaseProcessor {
         super(commands);
     }
 
-    private Pair<Interaction, Long> toInteraction(Update update) {
+    private Interaction toInteraction(Update update) {
         if (update.message() != null)
-            return Pair.of(Interaction.builder().content(update.message().text()).build(), update.message().chat().id());
-        return Pair.of(Interaction.builder().build(), 0L); // unknown interaction
+            return Interaction.builder()
+                            .chatId(update.message().chat().id())
+                            .content(update.message().text())
+                    .build();
+        return Interaction.builder().build(); // unknown interaction
     }
 
     private BaseRequest<?, ?> fromInteraction(long chatId, Interaction interaction) {
@@ -29,6 +31,6 @@ public class TelegramProcessor extends BaseProcessor {
 
     public BaseRequest<?, ?> processUpdate(Update update) {
         var parsed = toInteraction(update);
-        return fromInteraction(parsed.getRight(), process(parsed.getLeft()));
+        return fromInteraction(parsed.chatId(), process(parsed));
     }
 }
