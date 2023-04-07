@@ -22,7 +22,7 @@ public class TelegramProcessorTest {
         var result = processor.processUpdate(update);
         assertNotNull(result);
         assertInstanceOf(SendMessage.class, result);
-        assertEquals(result.getParameters().get("text"), BaseProcessor.DEFAULT_INTERACTION.content());
+        assertEquals(BaseProcessor.DEFAULT_INTERACTION_MESSAGE, result.getParameters().get("text"));
     }
 
 }

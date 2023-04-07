@@ -14,6 +14,8 @@ public class StartCommand extends CommandBase {
     @Override
     public Interaction handle(Interaction input) {
         log.info("User was registered");
-        return Interaction.builder().content("You are successfully registered! Check out /help for more info.").build();
+        return Interaction.builder(input.chatId())
+                .content("You are successfully registered! Check out /help for more info.")
+                .build();
     }
 }

@@ -14,6 +14,8 @@ public class TrackCommand extends CommandBase {
     @Override
     public Interaction handle(Interaction input) {
         log.info("User tried to track a new link");
-        return Interaction.builder().content("If I had a database, I would save your link!").build();
+        return Interaction.builder(input.chatId())
+                .content("If I had a database, I would save your link!")
+                .build();
     }
 }

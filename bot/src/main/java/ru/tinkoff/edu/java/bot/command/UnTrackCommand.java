@@ -14,6 +14,7 @@ public class UnTrackCommand extends CommandBase {
     @Override
     public Interaction handle(Interaction input) {
         log.info("User tried to untrack a link");
-        return Interaction.builder().content("If I had a database, I would remove your link from there!").build();
+        return Interaction.builder(input.chatId())
+                .content("If I had a database, I would remove your link from there!").build();
     }
 }

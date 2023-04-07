@@ -22,8 +22,8 @@ public class BaseProcessorTest {
         var input = Interaction.builder().content("Hello bot!").chatId(chatId).build();
         var output = processor.process(input);
         assertNotNull(output);
-        assertEquals(output.chatId(), chatId);
-        assertEquals(output.content(), BaseProcessor.DEFAULT_INTERACTION.content());
+        assertEquals(chatId, output.chatId());
+        assertEquals(BaseProcessor.DEFAULT_INTERACTION_MESSAGE, output.content());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class BaseProcessorTest {
         assertTrue(listCommand.test(input));
         var output = processor.process(input);
         assertNotNull(output);
-        assertEquals(output.chatId(), chatId);
-        assertEquals(output.content(), "I don't remember which links I should track :(");
+        assertEquals(chatId, output.chatId());
+        assertEquals("I don't remember which links I should track :(", output.content());
     }
 }

@@ -16,21 +16,20 @@ public class TelegramProcessor extends BaseProcessor {
 
     private Interaction toInteraction(Update update) {
         if (update.message() != null)
-            return Interaction.builder()
-                            .chatId(update.message().chat().id())
+            return Interaction.builder(update.message().chat().id())
                             .content(update.message().text())
                     .build();
         return Interaction.builder().build(); // unknown interaction
     }
 
-    private BaseRequest<?, ?> fromInteraction(long chatId, Interaction interaction) {
+    private BaseRequest<?, ?> fromInteraction(Interaction interaction) {
         if (interaction != null)
-            return new SendMessage(chatId, interaction.content());
-        return fromInteraction(chatId, BaseProcessor.DEFAULT_INTERACTION);
+            return new SendMessage(interaction.chatId(), interaction.content());
+        return fromInteraction(BaseProcessor.getDefaultInteraction(0));
     }
 
     public BaseRequest<?, ?> processUpdate(Update update) {
         var parsed = toInteraction(update);
-        return fromInteraction(parsed.chatId(), process(parsed));
+        return fromInteraction(process(parsed));
     }
 }

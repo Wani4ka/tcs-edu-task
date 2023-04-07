@@ -14,6 +14,8 @@ public class ListCommand extends CommandBase {
     @Override
     public Interaction handle(Interaction input) {
         log.info("User listed stored links");
-        return Interaction.builder().content("I don't remember which links I should track :(").build();
+        return Interaction.builder(input.chatId())
+                .content("I don't remember which links I should track :(")
+                .build();
     }
 }
