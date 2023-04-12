@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DatabaseTest extends IntegrationEnvironment {
 
-    private static final Set<String> expectedTableNames = Set.of("chat", "databasechangelog", "databasechangeloglock", "link");
+    private static final Set<String> expectedTableNames = Set.of("chat", "databasechangelog", "databasechangeloglock", "link", "subscription");
 
     @SneakyThrows
     @Test
