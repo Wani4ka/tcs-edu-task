@@ -10,7 +10,6 @@ import ru.tinkoff.edu.java.scrapper.IntegrationEnvironment;
 import ru.tinkoff.edu.java.scrapper.TestConstants;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,9 +24,8 @@ public class JdbcChatRepositoryTest extends IntegrationEnvironment {
     @Transactional
     @Rollback
     public void testAddChat() {
-        var chats = template.stream().map(chatRepo::add).collect(Collectors.toSet());
-        assertEquals(template.size(), chats.size());
-        assertThrows(DuplicateKeyException.class, () -> chatRepo.add(template.stream().findFirst().orElseThrow()));
+        template.forEach(chatRepo::add);
+        assertThrows(DuplicateKeyException.class, () -> chatRepo.add(template.iterator().next()));
     }
 
     @Test

@@ -5,7 +5,8 @@ import ru.tinkoff.edu.java.scrapper.domain.entity.Chat;
 import java.util.List;
 
 public interface ChatRepository {
-    long add(long id);
+    void add(long id);
     boolean remove(long id);
+    Chat findById(long id);
     List<Chat> findAll();
 }

@@ -6,7 +6,9 @@ import java.net.URI;
 import java.util.List;
 
 public interface LinkRepository {
-    long add(URI url);
+    void add(URI url);
     boolean remove(long id);
+    Link findById(long id);
+    Link findByUrl(URI url);
     List<Link> findAll();
 }

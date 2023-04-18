@@ -58,10 +58,15 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
 
     private Long addSubscription(long chat, URI uri) {
         if (!addedChats.contains(chat)) {
-            addedChats.add(chatRepo.add(chat));
+            chatRepo.add(chat);
+            addedChats.add(chat);
         }
-        var linkId = addedUris.computeIfAbsent(uri, linkRepo::add);
-        return subscriptionRepo.add(chat, linkId);
+        long linkId = addedUris.computeIfAbsent(uri, (url) -> {
+            linkRepo.add(url);
+            return linkRepo.findByUrl(url).getId();
+        });
+        subscriptionRepo.add(chat, linkId);
+        return subscriptionRepo.findByData(chat, linkId).getId();
     }
 
     private Set<Long> addSubscriptions() {
