@@ -10,3 +10,9 @@ app:
     baseUrl: https://api.github.com
   stackoverflow:
     baseUrl: https://api.stackexchange.com/2.3
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}

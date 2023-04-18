@@ -8,14 +8,16 @@ import ru.tinkoff.edu.java.scrapper.dto.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.dto.RemoveLinkRequest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 public class LinksController {
 
     @GetMapping("/links")
-    public ListLinksResponse listLinks(@PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId) {
-        return new ListLinksResponse(List.of(new LinkResponse(1, "https://github.com/")), 1);
+    public ListLinksResponse listLinks(@PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId) throws URISyntaxException {
+        return new ListLinksResponse(List.of(new LinkResponse(1, new URI("https://github.com/"))), 1);
     }
 
     @PostMapping("/links")

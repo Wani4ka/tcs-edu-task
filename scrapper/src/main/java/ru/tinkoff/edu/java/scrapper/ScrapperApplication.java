@@ -21,7 +21,6 @@ import ru.tinkoff.edu.java.scrapper.configuration.ApplicationConfig;
 @EnableScheduling
 public class ScrapperApplication {
     public static void main(String[] args) {
-        var ctx = SpringApplication.run(ScrapperApplication.class, args);
-        System.out.println(ctx.getBean(ApplicationConfig.class));
+        SpringApplication.run(ScrapperApplication.class, args);
     }
 }
