@@ -41,7 +41,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
         switch (parsed) {
             case GitHubLink ghLink -> {
                 var lastUpdate = ghService.getLastUpdate(ghLink.user(), ghLink.repo());
-                if (lastUpdate != null && lastUpdate.getCreatedAt().isAfter(OffsetDateTime.now(lastUpdate.getCreatedAt().getOffset()))) {
+                if (lastUpdate != null && lastUpdate.getCreatedAt().isAfter(link.getLastEvent())) {
                     sendUpdate(link, lastUpdate.getCreatedAt(), lastUpdate.getType().getDescription());
                     return true;
                 }
@@ -49,7 +49,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
             }
             case StackOverflowLink soLink -> {
                 var question = soService.fetchQuestion(soLink.id()).block();
-                if (question != null && question.lastActivityDate().isAfter(OffsetDateTime.now(question.lastActivityDate().getOffset()))) {
+                if (question != null && question.lastActivityDate().isAfter(link.getLastEvent())) {
                     sendUpdate(link, question.lastActivityDate(), "A StackOverflow question updated");
                     return true;
                 }

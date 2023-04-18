@@ -22,7 +22,7 @@ public class JdbcSubscriptionRepository extends JdbcRepository implements Subscr
 
     @Override
     public void add(long chatId, long linkId) {
-        jdbcTemplate.update("insert into subscription (link_id, chat_id) values (?, ?)", linkId, chatId);
+        jdbcTemplate.update("insert into subscription (link_id, chat_id) values (?, ?) on conflict do nothing", linkId, chatId);
     }
 
     @Override

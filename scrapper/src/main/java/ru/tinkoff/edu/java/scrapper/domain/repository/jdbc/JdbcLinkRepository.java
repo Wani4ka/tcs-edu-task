@@ -26,7 +26,7 @@ public class JdbcLinkRepository extends JdbcRepository implements LinkRepository
 
     @Override
     public void add(URI url) {
-        jdbcTemplate.update("insert into link (url) values (?)", url.toString());
+        jdbcTemplate.update("insert into link (url) values (?) on conflict do nothing", url.toString());
     }
 
     @Override

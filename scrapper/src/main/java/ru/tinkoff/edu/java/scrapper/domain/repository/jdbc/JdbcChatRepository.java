@@ -22,7 +22,7 @@ public class JdbcChatRepository extends JdbcRepository implements ChatRepository
 
     @Override
     public void add(long id) {
-        jdbcTemplate.update("insert into chat (id) values (?)", id);
+        jdbcTemplate.update("insert into chat (id) values (?) on conflict do nothing", id);
     }
 
     @Override

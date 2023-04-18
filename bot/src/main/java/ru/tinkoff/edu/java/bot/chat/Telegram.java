@@ -3,6 +3,7 @@ package ru.tinkoff.edu.java.bot.chat;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.BotCommand;
+import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,9 @@ public class Telegram {
                         .map(cmd -> new BotCommand(cmd.getName(), cmd.getDescription()))
                         .toArray(BotCommand[]::new);
         bot.execute(new SetMyCommands(commands));
+    }
+
+    public void sendMessage(long chatId, String text) {
+        bot.execute(new SendMessage(chatId, text));
     }
 }
