@@ -55,6 +55,6 @@ public class JdbcSubscriptionService implements SubscriptionService {
 
     @Override
     public Collection<ChatEntity> getSubscribers(long linkId) {
-        return repository.findByLink(linkId).stream().map(sub -> new ChatEntity(sub.getId())).toList();
+        return repository.findByLink(linkId).stream().map(sub -> new ChatEntity(sub.getChatId())).toList();
     }
 }
