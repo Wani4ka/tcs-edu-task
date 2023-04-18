@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.domain.entity.Chat;
+import ru.tinkoff.edu.java.scrapper.domain.entity.ChatEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.ChatRepository;
 
 import javax.sql.DataSource;
@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class JdbcChatRepository extends JdbcRepository implements ChatRepository {
 
-    private static final RowMapper<Chat> MAPPER = new BeanPropertyRowMapper<>(Chat.class);
+    private static final RowMapper<ChatEntity> MAPPER = new BeanPropertyRowMapper<>(ChatEntity.class);
 
     @Autowired
     public JdbcChatRepository(DataSource ds) {
@@ -31,12 +31,12 @@ public class JdbcChatRepository extends JdbcRepository implements ChatRepository
     }
 
     @Override
-    public Chat findById(long id) {
+    public ChatEntity findById(long id) {
         return jdbcTemplate.queryForObject("select id from chat where id=?", MAPPER, id);
     }
 
     @Override
-    public List<Chat> findAll() {
+    public List<ChatEntity> findAll() {
         return jdbcTemplate.query("select id from chat", MAPPER);
     }
 }

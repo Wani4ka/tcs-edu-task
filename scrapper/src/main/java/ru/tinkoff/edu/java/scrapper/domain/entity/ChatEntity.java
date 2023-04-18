@@ -1,13 +1,12 @@
 package ru.tinkoff.edu.java.scrapper.domain.entity;
 
-import lombok.*;
-
-import java.net.URI;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Link {
+public class ChatEntity {
     private long id;
-    private URI url;
 }

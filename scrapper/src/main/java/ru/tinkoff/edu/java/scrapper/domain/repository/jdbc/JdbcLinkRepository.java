@@ -4,17 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.scrapper.domain.entity.Link;
+import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.LinkRepository;
 
 import javax.sql.DataSource;
 import java.net.URI;
+import java.time.Duration;
+import java.time.OffsetDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Component
 public class JdbcLinkRepository extends JdbcRepository implements LinkRepository {
 
-    private static final RowMapper<Link> MAPPER = new BeanPropertyRowMapper<>(Link.class);
+    private static final RowMapper<LinkEntity> MAPPER = new BeanPropertyRowMapper<>(LinkEntity.class);
 
     @Autowired
     public JdbcLinkRepository(DataSource ds) {
@@ -32,17 +35,27 @@ public class JdbcLinkRepository extends JdbcRepository implements LinkRepository
     }
 
     @Override
-    public Link findById(long id) {
-        return jdbcTemplate.queryForObject("select id, url from link where id=?", MAPPER, id);
+    public LinkEntity findById(long id) {
+        return jdbcTemplate.queryForObject("select id, url, last_check, last_event from link where id=?", MAPPER, id);
     }
 
     @Override
-    public Link findByUrl(URI url) {
-        return jdbcTemplate.queryForObject("select id, url from link where url=?", new BeanPropertyRowMapper<>(Link.class), url.toString());
+    public LinkEntity findByUrl(URI url) {
+        return jdbcTemplate.queryForObject("select id, url, last_check, last_event from link where url=?", MAPPER, url.toString());
     }
 
     @Override
-    public List<Link> findAll() {
-        return jdbcTemplate.query("select id, url from link", new BeanPropertyRowMapper<>(Link.class));
+    public List<LinkEntity> findAll() {
+        return jdbcTemplate.query("select id, url, last_check, last_event from link", MAPPER);
+    }
+
+    @Override
+    public Collection<LinkEntity> peekOld(Duration maxAge) {
+        return jdbcTemplate.query("update link set last_check=now() where last_check < ? returning id, url, last_check, last_event", MAPPER, OffsetDateTime.now().minus(maxAge));
+    }
+
+    @Override
+    public void updateLastEvent(long id, OffsetDateTime lastEvent) {
+        jdbcTemplate.update("update link set last_event=? where id=?", lastEvent, id);
     }
 }

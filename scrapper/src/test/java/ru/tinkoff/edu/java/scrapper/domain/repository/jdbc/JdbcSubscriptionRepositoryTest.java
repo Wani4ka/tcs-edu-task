@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 import ru.tinkoff.edu.java.scrapper.IntegrationEnvironment;
 import ru.tinkoff.edu.java.scrapper.TestConstants;
-import ru.tinkoff.edu.java.scrapper.domain.entity.Subscription;
+import ru.tinkoff.edu.java.scrapper.domain.entity.SubscriptionEntity;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -90,7 +90,7 @@ public class JdbcSubscriptionRepositoryTest extends IntegrationEnvironment {
         assertTrue(subscriptionRepo.remove(id));
     }
 
-    private void assertAllFound(List<Subscription> found, Set<Pair<Long, URI>> need) {
+    private void assertAllFound(List<SubscriptionEntity> found, Set<Pair<Long, URI>> need) {
         assertEquals(need.size(), found.size());
         assertAll(found.stream()
                 .map(sub -> () -> assertTrue(need.contains(Pair.of(sub.getChatId(), addedUris.getKey(sub.getLinkId()))))));

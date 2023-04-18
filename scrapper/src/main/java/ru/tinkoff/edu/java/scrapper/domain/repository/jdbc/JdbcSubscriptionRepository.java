@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.scrapper.domain.entity.Subscription;
+import ru.tinkoff.edu.java.scrapper.domain.entity.SubscriptionEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.SubscriptionRepository;
 
 import javax.sql.DataSource;
@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class JdbcSubscriptionRepository extends JdbcRepository implements SubscriptionRepository {
 
-    private static final RowMapper<Subscription> MAPPER = new BeanPropertyRowMapper<>(Subscription.class);
+    private static final RowMapper<SubscriptionEntity> MAPPER = new BeanPropertyRowMapper<>(SubscriptionEntity.class);
 
     @Autowired
     public JdbcSubscriptionRepository(DataSource ds) {
@@ -31,27 +31,27 @@ public class JdbcSubscriptionRepository extends JdbcRepository implements Subscr
     }
 
     @Override
-    public List<Subscription> findAll() {
+    public List<SubscriptionEntity> findAll() {
         return jdbcTemplate.query("select id, link_id, chat_id from subscription", MAPPER);
     }
 
     @Override
-    public Subscription findById(long id) {
+    public SubscriptionEntity findById(long id) {
         return jdbcTemplate.queryForObject("select id, link_id, chat_id from subscription where id=?", MAPPER, id);
     }
 
     @Override
-    public Subscription findByData(long chatId, long linkId) {
+    public SubscriptionEntity findByData(long chatId, long linkId) {
         return jdbcTemplate.queryForObject("select id, link_id, chat_id from subscription where chat_id=? and link_id=?", MAPPER, chatId, linkId);
     }
 
     @Override
-    public List<Subscription> findByChat(long chatId) {
+    public List<SubscriptionEntity> findByChat(long chatId) {
         return jdbcTemplate.query("select id, link_id, chat_id from subscription where chat_id=?", MAPPER, chatId);
     }
 
     @Override
-    public List<Subscription> findByLink(long linkId) {
+    public List<SubscriptionEntity> findByLink(long linkId) {
         return jdbcTemplate.query("select id, link_id, chat_id from subscription where link_id=?", MAPPER, linkId);
     }
 }

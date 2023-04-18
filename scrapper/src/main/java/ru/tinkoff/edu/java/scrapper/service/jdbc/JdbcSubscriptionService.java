@@ -3,7 +3,8 @@ package ru.tinkoff.edu.java.scrapper.service.jdbc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tinkoff.edu.java.scrapper.domain.entity.Link;
+import ru.tinkoff.edu.java.scrapper.domain.entity.ChatEntity;
+import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.SubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 import ru.tinkoff.edu.java.scrapper.service.SubscriptionService;
@@ -18,20 +19,20 @@ public class JdbcSubscriptionService implements SubscriptionService {
     private final SubscriptionRepository repository;
     private final LinkService links;
 
-    protected void subscribe(long chatId, Link link) {
+    protected void subscribe(long chatId, LinkEntity link) {
         repository.add(chatId, link.getId());
     }
 
     @Override
     @Transactional
-    public Link subscribe(long tgChatId, URI url) {
+    public LinkEntity subscribe(long tgChatId, URI url) {
         var link = links.add(url);
         subscribe(tgChatId, link);
         return link;
     }
 
     @Transactional
-    protected void unsubscribe(long chatId, Link link) {
+    protected void unsubscribe(long chatId, LinkEntity link) {
         var sub = repository.findByData(chatId, link.getId());
         if (sub == null)
             return;
@@ -39,7 +40,7 @@ public class JdbcSubscriptionService implements SubscriptionService {
     }
 
     @Override
-    public Link unsubscribe(long tgChatId, URI url) {
+    public LinkEntity unsubscribe(long tgChatId, URI url) {
         var link = links.findByUrl(url);
         unsubscribe(tgChatId, link);
         return link;
@@ -47,8 +48,13 @@ public class JdbcSubscriptionService implements SubscriptionService {
 
     @Override
     @Transactional
-    public Collection<Link> getSubscriptions(long tgChatId) {
+    public Collection<LinkEntity> getSubscriptions(long tgChatId) {
         var subs = repository.findByChat(tgChatId);
         return subs.stream().map(sub -> links.findById(sub.getLinkId())).toList();
+    }
+
+    @Override
+    public Collection<ChatEntity> getSubscribers(long linkId) {
+        return repository.findByLink(linkId).stream().map(sub -> new ChatEntity(sub.getId())).toList();
     }
 }

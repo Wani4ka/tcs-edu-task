@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Subscription {
+public class SubscriptionEntity {
     private long id;
     private long chatId;
     private long linkId;

@@ -5,7 +5,8 @@ springdoc:
 
 app:
   scheduler:
-    interval: 10000
+    interval: 10s
+    maxLinkAge: 20s
   github:
     baseUrl: https://api.github.com
   stackoverflow:

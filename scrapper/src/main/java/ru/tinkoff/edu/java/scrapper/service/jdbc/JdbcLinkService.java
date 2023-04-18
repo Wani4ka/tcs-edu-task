@@ -3,7 +3,7 @@ package ru.tinkoff.edu.java.scrapper.service.jdbc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tinkoff.edu.java.scrapper.domain.entity.Link;
+import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
@@ -16,24 +16,24 @@ public class JdbcLinkService implements LinkService {
     private final LinkRepository repository;
 
     @Override
-    public Link add(URI url) {
+    public LinkEntity add(URI url) {
         repository.add(url);
         return repository.findByUrl(url);
     }
 
     @Override
-    public Link findById(long id) {
+    public LinkEntity findById(long id) {
         return repository.findById(id);
     }
 
     @Override
-    public Link findByUrl(URI url) {
+    public LinkEntity findByUrl(URI url) {
         return repository.findByUrl(url);
     }
 
     @Override
     @Transactional
-    public Link remove(URI url) {
+    public LinkEntity remove(URI url) {
         var link = findByUrl(url);
         if (link == null)
             return null;

@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.scrapper.configuration;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
@@ -11,4 +12,9 @@ public record ApplicationConfig(
         @NotNull StackOverflowProperties stackoverflow,
         @NotNull BotProperties bot,
         @NotNull Scheduler scheduler
-) {}
+) {
+    @Bean("scheduler")
+    public Scheduler getScheduler() {
+        return scheduler;
+    }
+}
