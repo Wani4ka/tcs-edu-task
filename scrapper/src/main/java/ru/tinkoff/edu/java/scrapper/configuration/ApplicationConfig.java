@@ -9,5 +9,6 @@ import org.springframework.validation.annotation.Validated;
 public record ApplicationConfig(
         @NotNull GitHubProperties github,
         @NotNull StackOverflowProperties stackoverflow,
+        @NotNull BotProperties bot,
         @NotNull Scheduler scheduler
 ) {}

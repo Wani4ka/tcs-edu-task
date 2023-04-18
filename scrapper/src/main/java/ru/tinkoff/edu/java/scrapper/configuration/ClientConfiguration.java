@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+import ru.tinkoff.edu.java.scrapper.client.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 
@@ -25,5 +26,10 @@ public class ClientConfiguration {
     @Bean
     public StackOverflowClient getStackOverflowClient(ApplicationConfig config) {
         return buildWebClient(StackOverflowClient.class, config.stackoverflow().getBaseUrl());
+    }
+
+    @Bean
+    public BotClient getBotClient(ApplicationConfig config) {
+        return buildWebClient(BotClient.class, config.bot().getBaseUrl());
     }
 }
