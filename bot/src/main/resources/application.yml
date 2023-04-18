@@ -4,7 +4,7 @@ springdoc:
 
 app:
   scrapper:
-    baseUrl: http://localhost:8080/
+    baseUrl: http://localhost:8080
   telegram:
     token: ${TG_BOT_TOKEN}
 

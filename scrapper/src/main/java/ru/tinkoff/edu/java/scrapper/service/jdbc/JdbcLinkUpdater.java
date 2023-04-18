@@ -10,8 +10,10 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.BotService;
 import ru.tinkoff.edu.java.scrapper.service.GitHubService;
 import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
+import ru.tinkoff.edu.java.scrapper.service.StackOverflowService;
 import ru.tinkoff.edu.java.url.LinkParser;
 import ru.tinkoff.edu.java.url.link.GitHubLink;
+import ru.tinkoff.edu.java.url.link.StackOverflowLink;
 
 import java.time.OffsetDateTime;
 
@@ -25,6 +27,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
     private final BotService botService;
 
     private final GitHubService ghService;
+    private final StackOverflowService soService;
 
     @Override
     @Transactional
@@ -40,6 +43,14 @@ public class JdbcLinkUpdater implements LinkUpdater {
                 var lastUpdate = ghService.getLastUpdate(ghLink.user(), ghLink.repo());
                 if (lastUpdate != null && lastUpdate.getCreatedAt().isAfter(OffsetDateTime.now(lastUpdate.getCreatedAt().getOffset()))) {
                     sendUpdate(link, lastUpdate.getCreatedAt(), lastUpdate.getType().getDescription());
+                    return true;
+                }
+                return false;
+            }
+            case StackOverflowLink soLink -> {
+                var question = soService.fetchQuestion(soLink.id()).block();
+                if (question != null && question.lastActivityDate().isAfter(OffsetDateTime.now(question.lastActivityDate().getOffset()))) {
+                    sendUpdate(link, question.lastActivityDate(), "A StackOverflow question updated");
                     return true;
                 }
                 return false;
