@@ -1,12 +1,13 @@
-package ru.tinkoff.edu.java.scrapper.service.jdbc;
+package ru.tinkoff.edu.java.scrapper.service.jooq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.configuration.Scheduler;
 import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
-import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcLinkRepository;
+import ru.tinkoff.edu.java.scrapper.domain.repository.jooq.JooqLinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.BotService;
 import ru.tinkoff.edu.java.scrapper.service.GitHubService;
 import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
@@ -18,11 +19,12 @@ import ru.tinkoff.edu.java.url.link.StackOverflowLink;
 import java.time.OffsetDateTime;
 
 @Slf4j
-@Service("jdbc_linkUpdater")
+@Service
+@Primary
 @RequiredArgsConstructor
-public class JdbcLinkUpdater implements LinkUpdater {
+public class JooqLinkUpdater implements LinkUpdater {
 
-    private final JdbcLinkRepository links;
+    private final JooqLinkRepository links;
     private final Scheduler scheduler;
     private final BotService botService;
 
@@ -32,6 +34,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
     @Override
     @Transactional
     public int update() {
+        log.info("I use jooq");
         return links.peekOld(scheduler.maxLinkAge())
                 .stream().reduce(0, (a, link) -> a + (update(link) ? 1 : 0), Integer::sum);
     }

@@ -2,14 +2,14 @@ package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.tinkoff.edu.java.scrapper.domain.repository.ChatRepository;
-import ru.tinkoff.edu.java.scrapper.service.UserService;
+import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcChatRepository;
+import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
-@Service
+@Service("jdbc_userService")
 @RequiredArgsConstructor
-public class JdbcUserService implements UserService {
+public class JdbcChatService implements ChatService {
 
-    private final ChatRepository repository;
+    private final JdbcChatRepository repository;
 
     @Override
     public void register(long tgChatId) {
