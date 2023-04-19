@@ -7,5 +7,9 @@
     <include relativeToChangelogFile="true" file="scripts/2023-04-11_create_chats.sql"/>
     <include relativeToChangelogFile="true" file="scripts/2023-04-11_create_links.sql"/>
     <include relativeToChangelogFile="true" file="scripts/2023-04-12_create_subscriptions.sql"/>
+    <include relativeToChangelogFile="true" file="scripts/2023-04-18_add_unique_constraints.sql"/>
+    <include relativeToChangelogFile="true" file="scripts/2023-04-18_add_triggers.sql"/>
+    <include relativeToChangelogFile="true" file="scripts/2023-04-18_last_link_check.sql"/>
+    <include relativeToChangelogFile="true" file="scripts/2023-04-18_last_link_event.sql"/>
 
 </databaseChangeLog>

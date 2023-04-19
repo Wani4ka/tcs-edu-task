@@ -1,0 +1,61 @@
+package ru.tinkoff.edu.java.scrapper.service.jooq;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.tinkoff.edu.java.scrapper.domain.entity.ChatEntity;
+import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
+import ru.tinkoff.edu.java.scrapper.domain.repository.jooq.JooqSubscriptionRepository;
+import ru.tinkoff.edu.java.scrapper.service.SubscriptionService;
+
+import java.net.URI;
+import java.util.Collection;
+
+@Service
+@Primary
+@RequiredArgsConstructor
+public class JooqSubscriptionService implements SubscriptionService {
+
+    private final JooqSubscriptionRepository repository;
+    private final JooqLinkService links;
+
+    protected void subscribe(long chatId, LinkEntity link) {
+        repository.add(chatId, link.getId());
+    }
+
+    @Override
+    @Transactional
+    public LinkEntity subscribe(long tgChatId, URI url) {
+        var link = links.add(url);
+        subscribe(tgChatId, link);
+        return link;
+    }
+
+    @Transactional
+    protected void unsubscribe(long chatId, LinkEntity link) {
+        var sub = repository.findByData(chatId, link.getId());
+        if (sub == null)
+            return;
+        repository.remove(sub.getId());
+    }
+
+    @Override
+    public LinkEntity unsubscribe(long tgChatId, URI url) {
+        var link = links.findByUrl(url);
+        unsubscribe(tgChatId, link);
+        return link;
+    }
+
+    @Override
+    @Transactional
+    public Collection<LinkEntity> getSubscriptions(long tgChatId) {
+        var subs = repository.findByChat(tgChatId);
+        return subs.stream().map(sub -> links.findById(sub.getLinkId())).toList();
+    }
+
+    @Override
+    public Collection<ChatEntity> getSubscribers(long linkId) {
+        return repository.findByLink(linkId).stream().map(sub -> new ChatEntity(sub.getChatId())).toList();
+    }
+}
