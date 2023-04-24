@@ -30,6 +30,6 @@ public abstract class ChatRepositoryTest extends IntegrationEnvironment {
     @Rollback
     public void testRemoveChat() {
         template.forEach(repository::add);
-        assertTrue(repository.remove(template.stream().findFirst().orElseThrow()));
+        assertTrue(repository.remove(template.stream().findFirst().orElseThrow()) > 0);
     }
 }

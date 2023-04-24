@@ -84,13 +84,16 @@ public abstract class SubscriptionRepositoryTest extends IntegrationEnvironment 
     @Transactional
     void removeTest() {
         var id = addSubscription(template.get(0).getLeft(), template.get(0).getRight());
-        assertTrue(subscriptionRepository.remove(id));
+        assertTrue(subscriptionRepository.remove(id) > 0);
     }
 
     private void assertAllFound(List<SubscriptionEntity> found, Set<Pair<Long, URI>> need) {
         assertEquals(need.size(), found.size());
         assertAll(found.stream()
-                .map(sub -> () -> assertTrue(need.contains(Pair.of(sub.getChatId(), addedUris.getKey(sub.getLinkId()))))));
+                .map(sub -> () -> {
+                    System.err.println(sub.getChatId() + " " + sub.getLinkId() + " " + addedUris.getKey(sub.getLinkId()));
+                    assertTrue(need.contains(Pair.of(sub.getChatId(), addedUris.getKey(sub.getLinkId()))));
+                }));
     }
 
     @Test

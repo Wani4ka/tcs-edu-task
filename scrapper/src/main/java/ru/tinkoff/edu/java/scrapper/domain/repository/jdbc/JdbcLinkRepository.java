@@ -3,7 +3,7 @@ package ru.tinkoff.edu.java.scrapper.domain.repository.jdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.LinkRepository;
 
@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Component
+@Repository
 public class JdbcLinkRepository extends JdbcRepository implements LinkRepository {
 
     private static final RowMapper<LinkEntity> MAPPER = new BeanPropertyRowMapper<>(LinkEntity.class);
@@ -30,8 +30,8 @@ public class JdbcLinkRepository extends JdbcRepository implements LinkRepository
     }
 
     @Override
-    public boolean remove(long id) {
-        return jdbcTemplate.update("delete from link where id=?", id) > 0;
+    public int remove(long id) {
+        return jdbcTemplate.update("delete from link where id=?", id);
     }
 
     @Override

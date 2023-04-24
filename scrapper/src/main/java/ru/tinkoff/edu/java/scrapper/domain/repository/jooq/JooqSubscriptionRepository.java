@@ -25,10 +25,10 @@ public class JooqSubscriptionRepository implements SubscriptionRepository {
     }
 
     @Override
-    public boolean remove(long id) {
+    public int remove(long id) {
         return context.deleteFrom(SUBSCRIPTION)
                 .where(SUBSCRIPTION.ID.eq(id))
-                .execute() > 0;
+                .execute();
     }
 
     @Override

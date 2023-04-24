@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface LinkRepository {
     void add(URI url);
-    boolean remove(long id);
+    int remove(long id);
     LinkEntity findById(long id);
     LinkEntity findByUrl(URI url);
     List<LinkEntity> findAll();

@@ -1,10 +1,10 @@
-package ru.tinkoff.edu.java.scrapper.service.jooq;
+package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.domain.entity.ChatEntity;
 import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
-import ru.tinkoff.edu.java.scrapper.domain.repository.jooq.JooqSubscriptionRepository;
+import ru.tinkoff.edu.java.scrapper.domain.repository.jpa.JpaSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 import ru.tinkoff.edu.java.scrapper.service.SubscriptionService;
 
@@ -12,9 +12,9 @@ import java.net.URI;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class JooqSubscriptionService implements SubscriptionService {
+public class JpaSubscriptionService implements SubscriptionService {
 
-    private final JooqSubscriptionRepository repository;
+    private final JpaSubscriptionRepository repository;
     private final LinkService links;
 
     protected void subscribe(long chatId, LinkEntity link) {

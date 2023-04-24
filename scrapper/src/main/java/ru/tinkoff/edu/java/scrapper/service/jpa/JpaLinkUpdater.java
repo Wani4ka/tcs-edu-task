@@ -1,11 +1,11 @@
-package ru.tinkoff.edu.java.scrapper.service.jdbc;
+package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.configuration.Scheduler;
 import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
-import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcLinkRepository;
+import ru.tinkoff.edu.java.scrapper.domain.repository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.BotService;
 import ru.tinkoff.edu.java.scrapper.service.GitHubService;
 import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
@@ -18,9 +18,9 @@ import java.time.OffsetDateTime;
 
 @Slf4j
 @RequiredArgsConstructor
-public class JdbcLinkUpdater implements LinkUpdater {
+public class JpaLinkUpdater implements LinkUpdater {
 
-    private final JdbcLinkRepository links;
+    private final JpaLinkRepository links;
     private final Scheduler scheduler;
     private final BotService botService;
 

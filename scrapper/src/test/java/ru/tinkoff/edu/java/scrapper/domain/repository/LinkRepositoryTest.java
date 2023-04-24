@@ -33,7 +33,7 @@ public abstract class LinkRepositoryTest extends IntegrationEnvironment {
     public void testRemoveLink() {
         template.forEach(repository::add);
         var link = repository.findByUrl(template.iterator().next());
-        assertTrue(repository.remove(link.getId()));
+        assertTrue(repository.remove(link.getId()) > 0);
     }
 
     @Test

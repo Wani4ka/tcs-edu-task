@@ -25,10 +25,10 @@ public class JooqChatRepository implements ChatRepository {
     }
 
     @Override
-    public boolean remove(long id) {
+    public int remove(long id) {
         return context.deleteFrom(CHAT)
                 .where(CHAT.ID.eq(id))
-                .execute() > 0;
+                .execute();
     }
 
     @Override

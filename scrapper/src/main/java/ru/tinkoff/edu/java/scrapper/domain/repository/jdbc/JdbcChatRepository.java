@@ -26,8 +26,8 @@ public class JdbcChatRepository extends JdbcRepository implements ChatRepository
     }
 
     @Override
-    public boolean remove(long id) {
-        return jdbcTemplate.update("delete from chat where id=?", id) > 0;
+    public int remove(long id) {
+        return jdbcTemplate.update("delete from chat where id=?", id);
     }
 
     @Override

@@ -28,10 +28,10 @@ public class JooqLinkRepository implements LinkRepository {
     }
 
     @Override
-    public boolean remove(long id) {
+    public int remove(long id) {
         return context.deleteFrom(LINK)
                 .where(LINK.ID.eq(id))
-                .execute() > 0;
+                .execute();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class JooqLinkRepository implements LinkRepository {
         return context.select(LINK.fields())
                 .from(LINK)
                 .where(LINK.ID.eq(id))
-                .fetchOneInto(LinkEntity.class);
+                .fetchOne(LinkEntity.MAPPER);
     }
 
     @Override
@@ -47,14 +47,14 @@ public class JooqLinkRepository implements LinkRepository {
         return context.select(LINK.fields())
                 .from(LINK)
                 .where(LINK.URL.eq(url.toString()))
-                .fetchOneInto(LinkEntity.class);
+                .fetchOne(LinkEntity.MAPPER);
     }
 
     @Override
     public List<LinkEntity> findAll() {
         return context.select(LINK.fields())
                 .from(LINK)
-                .fetchInto(LinkEntity.class);
+                .fetch(LinkEntity.MAPPER);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class JooqLinkRepository implements LinkRepository {
                 .set(LINK.LAST_CHECK, OffsetDateTime.now())
                 .where(LINK.LAST_CHECK.lt(OffsetDateTime.now().minus(maxAge)))
                 .returning(LINK.fields())
-                .fetchInto(LinkEntity.class);
+                .fetch(LinkEntity.MAPPER);
     }
 
     @Override
