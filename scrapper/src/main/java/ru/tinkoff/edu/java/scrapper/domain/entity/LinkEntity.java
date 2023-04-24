@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.jetbrains.annotations.Nullable;
 import org.jooq.Record;
 import org.jooq.RecordMapper;
 
@@ -22,7 +21,12 @@ import java.util.Objects;
 @Entity(name = "link")
 public class LinkEntity {
 
-    public static final Mapper MAPPER = new Mapper();
+    public static final RecordMapper<Record, LinkEntity> MAPPER = record -> record == null ? null : new LinkEntity(
+            record.get("id", Long.class),
+            URI.create(record.get("url", String.class)),
+            record.get("last_check", OffsetDateTime.class),
+            record.get("last_event", OffsetDateTime.class)
+    );
 
     @Id
     @GeneratedValue
@@ -46,19 +50,4 @@ public class LinkEntity {
         return getClass().hashCode();
     }
 
-    private static class Mapper implements RecordMapper<Record, LinkEntity> {
-
-        @Override
-        public @Nullable LinkEntity map(Record record) {
-            if (record == null)
-                return null;
-            System.err.println(record.get("url", String.class));
-            return new LinkEntity(
-                    record.get("id", Long.class),
-                    URI.create(record.get("url", String.class)),
-                    record.get("last_check", OffsetDateTime.class),
-                    record.get("last_event", OffsetDateTime.class)
-            );
-        }
-    }
 }
