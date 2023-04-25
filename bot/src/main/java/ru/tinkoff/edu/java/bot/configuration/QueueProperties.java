@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QueueProperties {
-    private String queueName;
-    private String exchangeName;
+    private String name;
     private String routingKey;
 }

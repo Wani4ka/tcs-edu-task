@@ -14,7 +14,7 @@ public class ScrapperQueueProducer {
     private final QueueProperties properties;
 
     public void send(LinkUpdateRequest update) {
-        rt.convertAndSend(properties.getExchangeName(), properties.getRoutingKey(), update);
+        rt.convertAndSend(properties.getName(), properties.getRoutingKey(), update);
     }
 
 }

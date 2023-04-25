@@ -8,8 +8,7 @@ app:
   telegram:
     token: ${TG_BOT_TOKEN}
   queue:
-    queue-name: tcs.queue
-    exchange-name: tcs.exchange
+    name: tcs
     routing-key: tcs
 
 server:
