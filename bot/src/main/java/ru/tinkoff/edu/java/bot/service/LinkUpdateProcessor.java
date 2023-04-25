@@ -12,9 +12,8 @@ public class LinkUpdateProcessor {
     private final Telegram telegram;
 
     public void process(LinkUpdateRequest request) {
-        throw new RuntimeException("oh no, i broke");
-//        var msg = String.format("Detected an update for link %s:\n%s", request.url(), request.description());
-//        request.tgChatIds().forEach(chatId -> telegram.sendMessage(chatId, msg));
+        var msg = String.format("Detected an update for link %s:\n%s", request.url(), request.description());
+        request.tgChatIds().forEach(chatId -> telegram.sendMessage(chatId, msg));
     }
 
 }
