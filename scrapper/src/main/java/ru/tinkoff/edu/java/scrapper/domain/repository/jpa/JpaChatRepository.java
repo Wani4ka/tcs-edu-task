@@ -4,11 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.domain.entity.ChatEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.ChatRepository;
 
-@Repository
 public interface JpaChatRepository extends JpaRepository<ChatEntity, Long>, ChatRepository {
     @Override
     @Modifying

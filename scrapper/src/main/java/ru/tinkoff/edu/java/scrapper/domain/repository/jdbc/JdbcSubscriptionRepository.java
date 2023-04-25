@@ -3,14 +3,12 @@ package ru.tinkoff.edu.java.scrapper.domain.repository.jdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.domain.entity.SubscriptionEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.SubscriptionRepository;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-@Repository
 public class JdbcSubscriptionRepository extends JdbcRepository implements SubscriptionRepository {
 
     private static final RowMapper<SubscriptionEntity> MAPPER = new BeanPropertyRowMapper<>(SubscriptionEntity.class);

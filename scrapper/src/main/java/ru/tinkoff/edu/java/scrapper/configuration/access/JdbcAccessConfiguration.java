@@ -11,8 +11,9 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcSubscriptionRepos
 import ru.tinkoff.edu.java.scrapper.service.*;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcChatService;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkService;
-import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkUpdater;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcSubscriptionService;
+
+import javax.sql.DataSource;
 
 @Configuration
 @Slf4j
@@ -24,13 +25,28 @@ public class JdbcAccessConfiguration {
     }
 
     @Bean
+    public JdbcLinkRepository linkRepository(DataSource ds) {
+        return new JdbcLinkRepository(ds);
+    }
+
+    @Bean
     public LinkService linkService(JdbcLinkRepository repository) {
         return new JdbcLinkService(repository);
     }
 
     @Bean
+    public JdbcChatRepository chatRepository(DataSource ds) {
+        return new JdbcChatRepository(ds);
+    }
+
+    @Bean
     public ChatService chatService(JdbcChatRepository repository) {
         return new JdbcChatService(repository);
+    }
+
+    @Bean
+    public JdbcSubscriptionRepository subscriptionRepository(DataSource ds) {
+        return new JdbcSubscriptionRepository(ds);
     }
 
     @Bean
@@ -40,6 +56,6 @@ public class JdbcAccessConfiguration {
 
     @Bean
     public LinkUpdater linkUpdater(JdbcLinkRepository repository, Scheduler scheduler, BotService botService, GitHubService ghService, StackOverflowService soService) {
-        return new JdbcLinkUpdater(repository, scheduler, botService, ghService, soService);
+        return new LinkUpdater(repository, scheduler, botService, ghService, soService);
     }
 }
