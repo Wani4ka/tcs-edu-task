@@ -7,6 +7,10 @@ app:
     baseUrl: http://localhost:8080
   telegram:
     token: ${TG_BOT_TOKEN}
+  queue:
+    queue-name: tcs.queue
+    exchange-name: tcs.exchange
+    routing-key: tcs
 
 server:
   port: 8081

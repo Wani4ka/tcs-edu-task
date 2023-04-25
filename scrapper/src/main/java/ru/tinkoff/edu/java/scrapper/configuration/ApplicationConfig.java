@@ -10,9 +10,10 @@ import ru.tinkoff.edu.java.scrapper.configuration.access.AccessType;
 public record ApplicationConfig(
         @NotNull GitHubProperties github,
         @NotNull StackOverflowProperties stackoverflow,
-        @NotNull BotProperties bot,
+        BotProperties bot,
         @NotNull Scheduler scheduler,
         @NotNull AccessType databaseAccessType,
-        QueueProperties queue
+        QueueProperties queue,
+        boolean useQueue
 ) {
 }

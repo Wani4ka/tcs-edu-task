@@ -15,9 +15,10 @@ app:
     baseUrl: http://localhost:8081
   database-access-type: jpa
   queue:
-    queueName: tcs.queue
-    exchangeName: tcs.exchange
+    queue-name: tcs.queue
+    exchange-name: tcs.exchange
     routing-key: tcs
+  use-queue: true
 
 spring:
   datasource:

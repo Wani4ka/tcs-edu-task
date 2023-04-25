@@ -14,6 +14,11 @@ public class ApplicationBeans {
         return config.scheduler();
     }
 
+    @Bean("queueProperties")
+    public QueueProperties queueProperties(ApplicationConfig config) {
+        return config.queue();
+    }
+
     @Bean("reverse")
     public Function<Duration, OffsetDateTime> reverse() {
         return duration -> OffsetDateTime.now().minus(duration == null ? Duration.ZERO : duration);
