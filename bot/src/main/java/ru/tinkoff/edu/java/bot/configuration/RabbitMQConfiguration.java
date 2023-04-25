@@ -14,9 +14,21 @@ import java.util.Map;
 
 @Configuration
 public class RabbitMQConfiguration {
+    @Bean("queue")
+    public Queue messagesQueue(ApplicationConfig config) {
+        return QueueBuilder.durable(config.queue().getName())
+                .deadLetterExchange(config.queue().getName() + ".dlx")
+                .build();
+    }
+
     @Bean("exchange")
     public DirectExchange messagesExchange(ApplicationConfig config) {
         return new DirectExchange(config.queue().getName());
+    }
+
+    @Bean("binding")
+    public Binding bindingMessages(@Qualifier("queue") Queue queue, @Qualifier("exchange") DirectExchange exchange, ApplicationConfig config) {
+        return BindingBuilder.bind(queue).to(exchange).with(config.queue().getRoutingKey());
     }
 
     @Bean("dlx")
@@ -24,22 +36,9 @@ public class RabbitMQConfiguration {
         return new FanoutExchange(config.queue().getName() + ".dlx");
     }
 
-    @Bean("queue")
-    public Queue messagesQueue(ApplicationConfig config) {
-        return QueueBuilder.durable(config.queue().getName())
-                .deadLetterExchange("")
-                .deadLetterRoutingKey(config.queue().getRoutingKey())
-                .build();
-    }
-
     @Bean("dlq")
-    public Queue dlqQueue(ApplicationConfig config) {
+    public Queue deadLetterQueue(ApplicationConfig config) {
         return QueueBuilder.durable(config.queue().getName() + ".dlq").build();
-    }
-
-    @Bean("binding")
-    public Binding bindingMessages(@Qualifier("queue") Queue queue, @Qualifier("exchange") DirectExchange exchange, ApplicationConfig config) {
-        return BindingBuilder.bind(queue).to(exchange).with(config.queue().getRoutingKey());
     }
 
     @Bean("dlb")

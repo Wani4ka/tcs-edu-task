@@ -13,3 +13,9 @@ app:
 
 server:
   port: 8081
+
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        default-requeue-rejected: false
