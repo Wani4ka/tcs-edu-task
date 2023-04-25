@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
 public record ApplicationConfig(
         @NotNull ScrapperProperties scrapper,
-        TelegramProperties telegram
+        TelegramProperties telegram,
+        QueueProperties queue
 ) {
 }

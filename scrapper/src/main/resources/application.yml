@@ -14,6 +14,10 @@ app:
   bot:
     baseUrl: http://localhost:8081
   database-access-type: jpa
+  queue:
+    queueName: tcs.queue
+    exchangeName: tcs.exchange
+    routing-key: tcs
 
 spring:
   datasource:

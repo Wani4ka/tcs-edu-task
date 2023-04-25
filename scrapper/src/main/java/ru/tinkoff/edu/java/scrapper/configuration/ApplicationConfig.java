@@ -12,6 +12,7 @@ public record ApplicationConfig(
         @NotNull StackOverflowProperties stackoverflow,
         @NotNull BotProperties bot,
         @NotNull Scheduler scheduler,
-        @NotNull AccessType databaseAccessType
+        @NotNull AccessType databaseAccessType,
+        QueueProperties queue
 ) {
 }
