@@ -16,7 +16,7 @@ COPY bot/src bot/src
 COPY bot/pom.xml bot
 
 COPY pom.xml .
-RUN mvn clean package -pl scrapper -am
+RUN mvn clean package -pl scrapper -am -Dmaven.test.skip
 
 #
 # Package stage
