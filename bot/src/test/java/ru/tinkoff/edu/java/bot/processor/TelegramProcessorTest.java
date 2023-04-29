@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class TelegramProcessorTest {
-
     @Autowired
     private TelegramProcessor processor;
 
