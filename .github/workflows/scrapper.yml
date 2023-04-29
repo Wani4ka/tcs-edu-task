@@ -18,3 +18,13 @@ jobs:
         with:
           name: scrapper.jar
           path: scrapper/target/scrapper-*.jar
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: wani4ka/tcs-scrapper:latest
+          file: scrapper.Dockerfile
