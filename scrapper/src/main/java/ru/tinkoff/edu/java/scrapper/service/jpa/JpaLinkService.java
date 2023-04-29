@@ -14,6 +14,7 @@ public class JpaLinkService implements LinkService {
     private final JpaLinkRepository repository;
 
     @Override
+    @Transactional
     public LinkEntity add(URI url) {
         repository.add(url);
         return repository.findByUrl(url);

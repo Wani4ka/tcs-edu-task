@@ -14,6 +14,7 @@ public class JooqLinkService implements LinkService {
     private final JooqLinkRepository repository;
 
     @Override
+    @Transactional
     public LinkEntity add(URI url) {
         repository.add(url);
         return repository.findByUrl(url);

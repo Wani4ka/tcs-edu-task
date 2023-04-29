@@ -11,7 +11,6 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.jpa.JpaSubscriptionReposit
 import ru.tinkoff.edu.java.scrapper.service.*;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaChatService;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaLinkService;
-import ru.tinkoff.edu.java.scrapper.service.jpa.JpaLinkUpdater;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaSubscriptionService;
 
 @Configuration
@@ -40,7 +39,7 @@ public class JpaAccessConfiguration {
 
     @Bean
     public LinkUpdater linkUpdater(JpaLinkRepository repository, Scheduler scheduler, BotService botService, GitHubService ghService, StackOverflowService soService) {
-        return new JpaLinkUpdater(repository, scheduler, botService, ghService, soService);
+        return new LinkUpdater(repository, scheduler, botService, ghService, soService);
     }
 
 }

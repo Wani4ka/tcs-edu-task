@@ -38,6 +38,7 @@ public class JdbcSubscriptionService implements SubscriptionService {
     }
 
     @Override
+    @Transactional
     public LinkEntity unsubscribe(long tgChatId, URI url) {
         var link = links.findByUrl(url);
         unsubscribe(tgChatId, link);

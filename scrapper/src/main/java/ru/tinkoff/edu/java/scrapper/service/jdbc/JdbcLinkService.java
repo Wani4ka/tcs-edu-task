@@ -14,6 +14,7 @@ public class JdbcLinkService implements LinkService {
     private final JdbcLinkRepository repository;
 
     @Override
+    @Transactional
     public LinkEntity add(URI url) {
         repository.add(url);
         return repository.findByUrl(url);
