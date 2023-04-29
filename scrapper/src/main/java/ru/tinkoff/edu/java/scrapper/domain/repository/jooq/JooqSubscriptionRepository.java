@@ -2,15 +2,13 @@ package ru.tinkoff.edu.java.scrapper.domain.repository.jooq;
 
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.domain.entity.SubscriptionEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.SubscriptionRepository;
 
 import java.util.List;
 
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Subscription.*;
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Subscription.SUBSCRIPTION;
 
-@Repository
 @RequiredArgsConstructor
 public class JooqSubscriptionRepository implements SubscriptionRepository {
     private final DSLContext context;
@@ -25,10 +23,10 @@ public class JooqSubscriptionRepository implements SubscriptionRepository {
     }
 
     @Override
-    public boolean remove(long id) {
+    public int remove(long id) {
         return context.deleteFrom(SUBSCRIPTION)
                 .where(SUBSCRIPTION.ID.eq(id))
-                .execute() > 0;
+                .execute();
     }
 
     @Override

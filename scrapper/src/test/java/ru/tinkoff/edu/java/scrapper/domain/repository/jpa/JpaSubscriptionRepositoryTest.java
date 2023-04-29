@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.domain.repository.jdbc;
+package ru.tinkoff.edu.java.scrapper.domain.repository.jpa;
 
 import org.junit.jupiter.api.Nested;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.SubscriptionRepositoryTest
 
 @Nested
 @SpringBootTest
-public class JdbcSubscriptionRepositoryTest extends SubscriptionRepositoryTest {
+public class JpaSubscriptionRepositoryTest extends SubscriptionRepositoryTest {
     @Autowired
-    public JdbcSubscriptionRepositoryTest(JdbcChatRepository chatRepository, JdbcLinkRepository linkRepository, JdbcSubscriptionRepository subscriptionRepository, PlatformTransactionManager transactionManager) {
+    public JpaSubscriptionRepositoryTest(JpaChatRepository chatRepository, JpaLinkRepository linkRepository, JpaSubscriptionRepository subscriptionRepository, PlatformTransactionManager transactionManager) {
         super(chatRepository, linkRepository, subscriptionRepository, transactionManager);
     }
 }

@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.domain.repository.jdbc;
+package ru.tinkoff.edu.java.scrapper.domain.repository.jooq;
 
 import org.junit.jupiter.api.Nested;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +7,9 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.LinkRepositoryTest;
 
 @Nested
 @SpringBootTest
-public class JdbcLinkRepositoryTest extends LinkRepositoryTest {
+public class JooqLinkRepositoryTest extends LinkRepositoryTest {
     @Autowired
-    public JdbcLinkRepositoryTest(JdbcLinkRepository repository) {
+    public JooqLinkRepositoryTest(JooqLinkRepository repository) {
         super(repository);
     }
 }

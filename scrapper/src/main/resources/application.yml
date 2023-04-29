@@ -13,6 +13,7 @@ app:
     baseUrl: https://api.stackexchange.com/2.3
   bot:
     baseUrl: http://localhost:8081
+  database-access-type: jdbc
 
 spring:
   datasource:

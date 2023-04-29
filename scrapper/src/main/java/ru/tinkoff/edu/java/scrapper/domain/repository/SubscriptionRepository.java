@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SubscriptionRepository {
     void add(long chatId, long linkId);
-    boolean remove(long id);
+    int remove(long id);
     List<SubscriptionEntity> findAll();
     SubscriptionEntity findById(long id);
     SubscriptionEntity findByData(long chatId, long linkId);

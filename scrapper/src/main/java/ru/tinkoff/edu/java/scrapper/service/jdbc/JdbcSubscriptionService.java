@@ -1,22 +1,21 @@
 package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.domain.entity.ChatEntity;
 import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcSubscriptionRepository;
+import ru.tinkoff.edu.java.scrapper.service.LinkService;
 import ru.tinkoff.edu.java.scrapper.service.SubscriptionService;
 
 import java.net.URI;
 import java.util.Collection;
 
-@Service("jdbc_subscriptionService")
 @RequiredArgsConstructor
 public class JdbcSubscriptionService implements SubscriptionService {
 
     private final JdbcSubscriptionRepository repository;
-    private final JdbcLinkService links;
+    private final LinkService links;
 
     protected void subscribe(long chatId, LinkEntity link) {
         repository.add(chatId, link.getId());
@@ -39,6 +38,7 @@ public class JdbcSubscriptionService implements SubscriptionService {
     }
 
     @Override
+    @Transactional
     public LinkEntity unsubscribe(long tgChatId, URI url) {
         var link = links.findByUrl(url);
         unsubscribe(tgChatId, link);

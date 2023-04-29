@@ -2,15 +2,13 @@ package ru.tinkoff.edu.java.scrapper.domain.repository.jooq;
 
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.domain.entity.ChatEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.ChatRepository;
 
 import java.util.List;
 
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.*;
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT;
 
-@Repository
 @RequiredArgsConstructor
 public class JooqChatRepository implements ChatRepository {
 
@@ -25,10 +23,10 @@ public class JooqChatRepository implements ChatRepository {
     }
 
     @Override
-    public boolean remove(long id) {
+    public int remove(long id) {
         return context.deleteFrom(CHAT)
                 .where(CHAT.ID.eq(id))
-                .execute() > 0;
+                .execute();
     }
 
     @Override

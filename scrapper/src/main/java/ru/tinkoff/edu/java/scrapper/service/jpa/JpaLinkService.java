@@ -1,17 +1,17 @@
-package ru.tinkoff.edu.java.scrapper.service.jooq;
+package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
-import ru.tinkoff.edu.java.scrapper.domain.repository.jooq.JooqLinkRepository;
+import ru.tinkoff.edu.java.scrapper.domain.repository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
 import java.net.URI;
 
 @RequiredArgsConstructor
-public class JooqLinkService implements LinkService {
+public class JpaLinkService implements LinkService {
 
-    private final JooqLinkRepository repository;
+    private final JpaLinkRepository repository;
 
     @Override
     @Transactional
