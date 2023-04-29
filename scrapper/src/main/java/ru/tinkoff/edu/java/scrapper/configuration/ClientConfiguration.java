@@ -12,7 +12,6 @@ import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 
 @Configuration
 public class ClientConfiguration {
-
     private static final int maxResponseSize = 16 * 1024 * 1024;
 
     private <WebClientBased> WebClientBased buildWebClient(Class<WebClientBased> clazz, String baseUrl) {
