@@ -22,6 +22,6 @@ RUN mvn clean package -pl scrapper -am -Dmaven.test.skip
 # Package stage
 #
 FROM eclipse-temurin:17-alpine
-COPY --from=build /home/app/scrapper/target/scrapper-*.jar /usr/local/lib/scrapper.jar
+COPY --from=build scrapper/target/scrapper-*.jar scrapper.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/usr/local/lib/scrapper.jar"]
+ENTRYPOINT ["java", "-jar", "scrapper.jar"]
