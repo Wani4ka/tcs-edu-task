@@ -27,5 +27,5 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           push: true
-          tags: wani4ka/tcs-edu-task:bot
+          tags: ghcr.io/wani4ka/tcs-edu:bot
           file: bot.Dockerfile
