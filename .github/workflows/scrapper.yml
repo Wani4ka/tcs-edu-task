@@ -26,5 +26,5 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           push: true
-          tags: wani4ka/tcs-scrapper:latest
+          tags: wani4ka/tcs-edu-task:scrapper
           file: scrapper.Dockerfile
