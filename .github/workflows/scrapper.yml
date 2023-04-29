@@ -1,7 +1,8 @@
 on:
   push:
-#    paths:
-#      - 'scrapper/**'
+    paths:
+      - 'scrapper/**'
+      - 'scrapper.Dockerfile'
 
 jobs:
   build:
