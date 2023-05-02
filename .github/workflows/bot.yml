@@ -3,6 +3,7 @@ on:
     paths:
       - 'bot/**'
       - 'bot.Dockerfile'
+      - '.github/workflows/bot.yml'
 
 jobs:
   build:

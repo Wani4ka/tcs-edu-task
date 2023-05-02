@@ -3,6 +3,7 @@ on:
     paths:
       - 'scrapper/**'
       - 'scrapper.Dockerfile'
+      - '.github/workflows/scrapper.yml'
 
 jobs:
   build:
