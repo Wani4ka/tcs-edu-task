@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class JdbcRepository {
-    protected final JdbcTemplate jdbcTemplate;
+    protected final JdbcTemplate template;
 
     protected JdbcRepository(DataSource ds) {
         this(new JdbcTemplate(ds));

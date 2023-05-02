@@ -6,7 +6,10 @@ import java.net.URI;
 
 public interface LinkService {
     LinkEntity add(URI url);
+
     LinkEntity findById(long id);
+
     LinkEntity findByUrl(URI url);
+
     LinkEntity remove(URI url);
 }

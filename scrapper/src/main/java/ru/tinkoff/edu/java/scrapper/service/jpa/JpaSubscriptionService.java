@@ -32,8 +32,9 @@ public class JpaSubscriptionService implements SubscriptionService {
     @Transactional
     protected void unsubscribe(long chatId, LinkEntity link) {
         var sub = repository.findByData(chatId, link.getId());
-        if (sub == null)
+        if (sub == null) {
             return;
+        }
         repository.remove(sub.getId());
     }
 

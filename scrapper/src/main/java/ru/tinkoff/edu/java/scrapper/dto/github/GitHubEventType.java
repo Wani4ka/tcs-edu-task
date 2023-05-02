@@ -24,7 +24,8 @@ public enum GitHubEventType {
     PULL_REQUEST("Activity related to pull requests"),
     PULL_REQUEST_REVIEW("Activity related to pull request reviews"),
     PULL_REQUEST_REVIEW_COMMENT("Activity related to pull request review comments in the pull request's unified diff"),
-    PULL_REQUEST_REVIEW_THREAD("Activity related to a comment thread on a pull request being marked as resolved or unresolved"),
+    PULL_REQUEST_REVIEW_THREAD(
+        "Activity related to a comment thread on a pull request being marked as resolved or unresolved"),
     PUSH("One or more commits are pushed to a repository branch or tag"),
     RELEASE("Activity related to a release"),
     SPONSORSHIP("Activity related to a sponsorship listing"),
@@ -46,8 +47,8 @@ public enum GitHubEventType {
 
     public static class Deserializer extends JsonDeserializer<GitHubEventType> {
         @Override
-        public GitHubEventType deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-            return GitHubEventType.byJsonKey(jsonParser.readValueAs(String.class));
+        public GitHubEventType deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
+            return GitHubEventType.byJsonKey(parser.readValueAs(String.class));
         }
     }
 }

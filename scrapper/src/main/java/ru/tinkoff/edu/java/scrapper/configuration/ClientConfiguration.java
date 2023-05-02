@@ -12,11 +12,11 @@ import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 
 @Configuration
 public class ClientConfiguration {
-    private static final int maxResponseSize = 16 * 1024 * 1024;
+    private static final int MAX_RESPONSE_SIZE = 16 * 1024 * 1024;
 
-    private <WebClientBased> WebClientBased buildWebClient(Class<WebClientBased> clazz, String baseUrl) {
+    private <W> W buildWebClient(Class<W> clazz, String baseUrl) {
         var strategies = ExchangeStrategies.builder()
-                .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(maxResponseSize))
+                .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(MAX_RESPONSE_SIZE))
                 .build();
         var client = WebClient.builder().baseUrl(baseUrl).exchangeStrategies(strategies).build();
         var proxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();

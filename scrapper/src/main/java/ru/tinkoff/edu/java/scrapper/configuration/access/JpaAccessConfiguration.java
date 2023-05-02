@@ -38,8 +38,8 @@ public class JpaAccessConfiguration {
     }
 
     @Bean
-    public LinkUpdater linkUpdater(JpaLinkRepository repository, Scheduler scheduler, BotService botService, GitHubService ghService, StackOverflowService soService) {
-        return new LinkUpdater(repository, scheduler, botService, ghService, soService);
+    public LinkUpdater linkUpdater(JpaLinkRepository repo, Scheduler scheduler, BotService bot, GitHubService github, StackOverflowService stackoverflow) {
+        return new LinkUpdater(repo, scheduler, bot, github, stackoverflow);
     }
 
 }

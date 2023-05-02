@@ -20,21 +20,21 @@ public class JdbcChatRepository extends JdbcRepository implements ChatRepository
 
     @Override
     public void add(long id) {
-        jdbcTemplate.update("insert into chat (id) values (?) on conflict do nothing", id);
+        template.update("insert into chat (id) values (?) on conflict do nothing", id);
     }
 
     @Override
     public int remove(long id) {
-        return jdbcTemplate.update("delete from chat where id=?", id);
+        return template.update("delete from chat where id=?", id);
     }
 
     @Override
     public ChatEntity findById(long id) {
-        return jdbcTemplate.queryForObject("select id from chat where id=?", MAPPER, id);
+        return template.queryForObject("select id from chat where id=?", MAPPER, id);
     }
 
     @Override
     public List<ChatEntity> findAll() {
-        return jdbcTemplate.query("select id from chat", MAPPER);
+        return template.query("select id from chat", MAPPER);
     }
 }

@@ -23,7 +23,8 @@ public class ListCommand extends CommandBase {
         log.info("User listed stored links");
         var links = client.listLinks(input.chatId()).links();
         return Interaction.builder(input.chatId())
-                .content("Your links being watched:\n" + links.stream().map(link -> link.url().toString()).collect(Collectors.joining("\n")))
+                .content("Your links being watched:\n" +
+                    links.stream().map(link -> link.url().toString()).collect(Collectors.joining("\n")))
                 .build();
     }
 }

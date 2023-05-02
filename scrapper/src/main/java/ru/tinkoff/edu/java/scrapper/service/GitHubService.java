@@ -19,8 +19,9 @@ public class GitHubService {
 
     public GitHubEventResponse getLastUpdate(String author, String repo) {
         var events = fetchRepository(author, repo).block();
-        if (events == null || events.isEmpty())
+        if (events == null || events.isEmpty()) {
             return null;
+        }
         return events.get(0);
     }
 }

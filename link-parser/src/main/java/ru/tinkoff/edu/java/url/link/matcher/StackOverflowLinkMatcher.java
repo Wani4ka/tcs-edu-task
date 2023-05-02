@@ -8,10 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StackOverflowLinkMatcher extends PatternLinkMatcher {
-    private static final Pattern pattern = Pattern.compile("https://stackoverflow.com/questions/(\\d+)(?:/.*)?");
+    private static final Pattern PATTERN = Pattern.compile("https://stackoverflow.com/questions/(\\d+)(?:/.*)?");
 
     public StackOverflowLinkMatcher() {
-        super(pattern);
+        super(PATTERN);
     }
 
     @Override

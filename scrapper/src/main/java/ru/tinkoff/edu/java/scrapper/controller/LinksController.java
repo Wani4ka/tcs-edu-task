@@ -24,13 +24,17 @@ public class LinksController {
     }
 
     @PostMapping("/links")
-    public LinkResponse addLink(@PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId, @Valid @RequestBody AddLinkRequest req) {
+    public LinkResponse addLink(
+            @PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId,
+            @Valid @RequestBody AddLinkRequest req) {
         var link = subscriptions.subscribe(tgChatId, req.link());
         return new LinkResponse(link.getId(), link.getUrl());
     }
 
     @DeleteMapping("/links")
-    public LinkResponse deleteLink(@PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId, @Valid @RequestBody RemoveLinkRequest req) {
+    public LinkResponse deleteLink(
+            @PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId,
+            @Valid @RequestBody RemoveLinkRequest req) {
         var link = subscriptions.unsubscribe(tgChatId, req.link());
         return new LinkResponse(link.getId(), link.getUrl());
     }

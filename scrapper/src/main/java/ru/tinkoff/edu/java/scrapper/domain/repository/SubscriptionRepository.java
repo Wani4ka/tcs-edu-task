@@ -6,10 +6,16 @@ import java.util.List;
 
 public interface SubscriptionRepository {
     void add(long chatId, long linkId);
+
     int remove(long id);
+
     List<SubscriptionEntity> findAll();
+
     SubscriptionEntity findById(long id);
+
     SubscriptionEntity findByData(long chatId, long linkId);
+
     List<SubscriptionEntity> findByChat(long chatId);
+
     List<SubscriptionEntity> findByLink(long linkId);
 }

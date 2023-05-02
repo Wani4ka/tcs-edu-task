@@ -22,6 +22,8 @@ public class JooqCodegen {
         applyMigrations();
     }
 
+    private JooqCodegen() {}
+
     @SneakyThrows
     private static void applyMigrations() {
         var root = new File("").getAbsoluteFile().toPath();
@@ -31,6 +33,7 @@ public class JooqCodegen {
         liquibase.update();
     }
 
+    // generates jooq-related code
     public static void main(String[] args) throws Exception {
         var jdbc = new Jdbc()
                 .withDriver(CONTAINER.getDriverClassName())

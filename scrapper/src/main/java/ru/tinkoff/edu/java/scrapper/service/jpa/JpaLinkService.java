@@ -34,8 +34,9 @@ public class JpaLinkService implements LinkService {
     @Transactional
     public LinkEntity remove(URI url) {
         var link = findByUrl(url);
-        if (link == null)
+        if (link == null) {
             return null;
+        }
         repository.remove(link.getId());
         return link;
     }
