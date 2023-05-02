@@ -50,8 +50,8 @@ public class JdbcLinkRepository extends JdbcRepository implements LinkRepository
 
     @Override
     public Collection<LinkEntity> peekOld(Duration maxAge) {
-        return template.query("update link set last_check=now() where last_check < ? " +
-                "returning id, url, last_check, last_event",
+        return template.query("update link set last_check=now() where last_check < ? "
+                + "returning id, url, last_check, last_event",
             MAPPER, OffsetDateTime.now().minus(maxAge));
     }
 

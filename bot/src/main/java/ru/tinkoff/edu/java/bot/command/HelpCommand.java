@@ -25,8 +25,8 @@ public class HelpCommand extends CommandBase {
                 .map(cmd -> String.format("%s - %s", cmd.name, cmd.description))
                 .collect(Collectors.joining("\n"));
         return Interaction.builder(message.chatId())
-                .content("Hi! I'm a test project from Tinkoff, made by Wani4ka. Here are the commands you can use:\n" +
-                    available)
+                .content("Hi! I'm a test project from Tinkoff, made by Wani4ka. Here are the commands you can use:\n"
+                    + available)
                 .build();
     }
 }

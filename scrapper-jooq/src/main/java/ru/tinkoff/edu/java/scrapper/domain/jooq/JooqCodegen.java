@@ -12,7 +12,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import java.io.File;
 import java.sql.DriverManager;
 
-public class JooqCodegen {
+public final class JooqCodegen {
 
     static final PostgreSQLContainer<?> CONTAINER;
 
@@ -33,7 +33,6 @@ public class JooqCodegen {
         liquibase.update();
     }
 
-    // generates jooq-related code
     public static void main(String[] args) throws Exception {
         var jdbc = new Jdbc()
                 .withDriver(CONTAINER.getDriverClassName())

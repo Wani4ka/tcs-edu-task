@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class LinkParser {
+public final class LinkParser {
     private static final Map<String, LinkMatcher> REGISTERED = new HashMap<>();
 
     public static void registerMatcher(String id, LinkMatcher parser) {
