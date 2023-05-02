@@ -15,6 +15,8 @@ jobs:
           distribution: temurin
           cache: maven
       - run: mvn package -pl bot -am
+      - name: Validate code style
+        run: mvn -pl bot -am checkstyle:check
       - uses: actions/upload-artifact@v3
         with:
           name: bot.jar
