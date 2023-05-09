@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.scrapper.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import ru.tinkoff.edu.java.commons.configuration.QueueProperties;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;

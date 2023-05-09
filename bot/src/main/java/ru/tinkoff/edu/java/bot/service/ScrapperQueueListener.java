@@ -14,13 +14,13 @@ public class ScrapperQueueListener {
 
     private final LinkUpdateProcessor processor;
 
-    @RabbitListener(queues = "${app.queue.name}")
+    @RabbitListener(queues = "#{queueProperties.name}")
     public void receive(LinkUpdateRequest request) {
         processor.process(request);
     }
 
-    @RabbitListener(queues = "${app.queue.name}.dlq")
+    @RabbitListener(queues = "#{queueProperties.deadLetterQueueName}")
     public void processFailedMessage(Message message) {
-        log.info("Received failed message: {}", message.toString());
+        log.error("Received failed message: {}", message.toString());
     }
 }
