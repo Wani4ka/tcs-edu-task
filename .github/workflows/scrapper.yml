@@ -53,7 +53,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: 'ghcr.io/${OWNER_LC}/tcs-edu-scrapper:latest'
+          tags: ghcr.io/${OWNER_LC}/tcs-edu-scrapper:latest
           file: scrapper.Dockerfile
-        env:
-          OWNER_LC: ${OWNER_LC}
