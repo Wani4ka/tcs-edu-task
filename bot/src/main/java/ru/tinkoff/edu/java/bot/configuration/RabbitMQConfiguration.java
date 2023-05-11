@@ -17,7 +17,9 @@ public class RabbitMQConfiguration {
     public ClassMapper classMapper() {
         var classMapper = new DefaultClassMapper();
         classMapper.setTrustedPackages("ru.tinkoff.edu.java.scrapper.dto.*");
-        classMapper.setIdClassMapping(Map.of("ru.tinkoff.edu.java.scrapper.dto.LinkUpdateRequest", LinkUpdateRequest.class));
+        classMapper.setIdClassMapping(Map.of(
+            "ru.tinkoff.edu.java.scrapper.dto.LinkUpdateRequest", LinkUpdateRequest.class
+        ));
         return classMapper;
     }
 
