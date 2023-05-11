@@ -7,6 +7,15 @@ app:
     baseUrl: http://localhost:8080
   telegram:
     token: ${TG_BOT_TOKEN}
+  queue:
+    name: tcs
+    routing-key: tcs
 
 server:
   port: 8081
+
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        default-requeue-rejected: false

@@ -1,5 +1,15 @@
 version: '3.9'
 services:
+  queue:
+    image: rabbitmq:3-management
+    container_name: links_queue
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks: ['backend']
+    volumes:
+      - queue:/var/lib/rabbitmq
+
   postgresql:
     image: postgres:15
     container_name: links_db
@@ -29,6 +39,7 @@ services:
 
 volumes:
   links_db:
+  queue:
 
 networks:
   backend:
