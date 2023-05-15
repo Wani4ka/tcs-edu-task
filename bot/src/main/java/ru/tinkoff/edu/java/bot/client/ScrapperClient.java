@@ -21,10 +21,12 @@ public interface ScrapperClient {
     ListLinksResponse listLinks(@PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId);
 
     @PostExchange("/links")
-    LinkResponse addLink(@PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId, @Valid @RequestBody AddLinkRequest req);
+    LinkResponse addLink(
+        @PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId, @Valid @RequestBody AddLinkRequest req);
 
     @DeleteExchange("/links")
-    LinkResponse deleteLink(@PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId, @Valid @RequestBody RemoveLinkRequest req);
+    LinkResponse deleteLink(
+        @PositiveOrZero @RequestHeader("Tg-Chat-Id") long tgChatId, @Valid @RequestBody RemoveLinkRequest req);
 
     @PostExchange("/tg-chat/{id}")
     void registerChat(@PositiveOrZero @PathVariable long id);

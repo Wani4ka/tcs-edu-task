@@ -12,7 +12,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import java.io.File;
 import java.sql.DriverManager;
 
-public class JooqCodegen {
+public final class JooqCodegen {
 
     static final PostgreSQLContainer<?> CONTAINER;
 
@@ -21,6 +21,8 @@ public class JooqCodegen {
         CONTAINER.start();
         applyMigrations();
     }
+
+    private JooqCodegen() {}
 
     @SneakyThrows
     private static void applyMigrations() {

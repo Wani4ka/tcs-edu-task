@@ -12,11 +12,11 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class LinkParser {
-    private static final Map<String, LinkMatcher> registered = new HashMap<>();
+public final class LinkParser {
+    private static final Map<String, LinkMatcher> REGISTERED = new HashMap<>();
 
     public static void registerMatcher(String id, LinkMatcher parser) {
-        registered.put(id, parser);
+        REGISTERED.put(id, parser);
     }
 
     static { // register default
@@ -29,7 +29,7 @@ public class LinkParser {
             if (url == null || !url.equals(URLDecoder.decode(url, StandardCharsets.UTF_8))) {
                 throw new IllegalArgumentException("Link is invalid");
             }
-            return registered.values().stream()
+            return REGISTERED.values().stream()
                     .map(parser -> parser.matchLink(url))
                     .filter(Objects::nonNull)
                     .findFirst().orElseThrow();
@@ -37,4 +37,6 @@ public class LinkParser {
             return null;
         }
     }
+
+    private LinkParser() {}
 }

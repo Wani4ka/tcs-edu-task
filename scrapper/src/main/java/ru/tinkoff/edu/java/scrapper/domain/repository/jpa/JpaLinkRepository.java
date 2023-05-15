@@ -38,6 +38,8 @@ public interface JpaLinkRepository extends JpaRepository<LinkEntity, Long>, Link
 
     @Override
     @Modifying(clearAutomatically = true)
-    @Query(value = "update link set last_check=?#{@reverse.apply(null)} where last_check < ?#{@reverse.apply(#maxAge)} returning id, url, last_check, last_event", nativeQuery = true)
+    @Query(value = "update link set last_check=?#{@reverse.apply(null)} "
+        + "where last_check < ?#{@reverse.apply(#maxAge)} "
+        + "returning id, url, last_check, last_event", nativeQuery = true)
     Collection<LinkEntity> peekOld(@Param("maxAge") Duration maxAge);
 }

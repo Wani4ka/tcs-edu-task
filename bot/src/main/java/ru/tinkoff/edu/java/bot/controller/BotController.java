@@ -17,7 +17,10 @@ public class BotController {
 
     private final LinkUpdateProcessor processor;
 
-    @PostMapping(path = "/updates", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+        path = "/updates",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Отправить обновление")
     @ApiResponse(responseCode = "200", description = "Обновление сработало")
     @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса")

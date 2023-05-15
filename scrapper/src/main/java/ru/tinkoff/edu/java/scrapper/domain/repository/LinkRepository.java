@@ -10,10 +10,16 @@ import java.util.List;
 
 public interface LinkRepository {
     void add(URI url);
+
     int remove(long id);
+
     LinkEntity findById(long id);
+
     LinkEntity findByUrl(URI url);
+
     List<LinkEntity> findAll();
+
     Collection<LinkEntity> peekOld(Duration maxAge);
+
     void updateLastEvent(long id, OffsetDateTime lastEvent);
 }

@@ -15,16 +15,18 @@ public class TelegramProcessor extends BaseProcessor {
     }
 
     private Interaction toInteraction(Update update) {
-        if (update.message() != null)
+        if (update.message() != null) {
             return Interaction.builder(update.message().chat().id())
-                            .content(update.message().text())
-                    .build();
+                .content(update.message().text())
+                .build();
+        }
         return Interaction.builder().build(); // unknown interaction
     }
 
     private BaseRequest<?, ?> fromInteraction(Interaction interaction) {
-        if (interaction != null)
+        if (interaction != null) {
             return new SendMessage(interaction.chatId(), interaction.content());
+        }
         return fromInteraction(BaseProcessor.getDefaultInteraction(0));
     }
 

@@ -8,10 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GitHubLinkMatcher extends PatternLinkMatcher {
-    private static final Pattern pattern = Pattern.compile("https://github.com/([a-zA-Z0-9_\\-]+)/([a-zA-Z0-9_\\-]+)(?:/.*)?");
+    private static final Pattern PATTERN = Pattern.compile("https://github.com/([a-zA-Z0-9_\\-]+)/([a-zA-Z0-9_\\-]+)(?:/.*)?");
 
     public GitHubLinkMatcher() {
-        super(pattern);
+        super(PATTERN);
     }
 
     @Override

@@ -12,5 +12,7 @@ import java.util.List;
 @HttpExchange(accept = "application/vnd.github+json", contentType = MediaType.APPLICATION_JSON_VALUE)
 public interface GitHubClient {
     @GetExchange("/repos/{owner}/{repo}/events")
-    Mono<List<GitHubEventResponse>> fetchEvents(@PathVariable("owner") String author, @PathVariable("repo") String repo);
+    Mono<List<GitHubEventResponse>> fetchEvents(
+        @PathVariable("owner") String author, @PathVariable("repo") String repo
+    );
 }

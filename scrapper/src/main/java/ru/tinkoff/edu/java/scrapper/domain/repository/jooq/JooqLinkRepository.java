@@ -17,11 +17,11 @@ import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Link.LINK;
 
 @RequiredArgsConstructor
 public class JooqLinkRepository implements LinkRepository {
-    private static final RecordMapper<Record, LinkEntity> MAPPER = record -> record == null ? null : new LinkEntity(
-            record.get("id", Long.class),
-            URI.create(record.get("url", String.class)),
-            record.get("last_check", OffsetDateTime.class),
-            record.get("last_event", OffsetDateTime.class)
+    private static final RecordMapper<Record, LinkEntity> MAPPER = rec -> rec == null ? null : new LinkEntity(
+            rec.get("id", Long.class),
+            URI.create(rec.get("url", String.class)),
+            rec.get("last_check", OffsetDateTime.class),
+            rec.get("last_event", OffsetDateTime.class)
     );
 
     private final DSLContext context;

@@ -20,36 +20,38 @@ public class JdbcSubscriptionRepository extends JdbcRepository implements Subscr
 
     @Override
     public void add(long chatId, long linkId) {
-        jdbcTemplate.update("insert into subscription (link_id, chat_id) values (?, ?) on conflict do nothing", linkId, chatId);
+        template.update("insert into subscription (link_id, chat_id) values (?, ?) on conflict do nothing",
+            linkId, chatId);
     }
 
     @Override
     public int remove(long id) {
-        return jdbcTemplate.update("delete from subscription where id=?", id);
+        return template.update("delete from subscription where id=?", id);
     }
 
     @Override
     public List<SubscriptionEntity> findAll() {
-        return jdbcTemplate.query("select id, link_id, chat_id from subscription", MAPPER);
+        return template.query("select id, link_id, chat_id from subscription", MAPPER);
     }
 
     @Override
     public SubscriptionEntity findById(long id) {
-        return jdbcTemplate.queryForObject("select id, link_id, chat_id from subscription where id=?", MAPPER, id);
+        return template.queryForObject("select id, link_id, chat_id from subscription where id=?", MAPPER, id);
     }
 
     @Override
     public SubscriptionEntity findByData(long chatId, long linkId) {
-        return jdbcTemplate.queryForObject("select id, link_id, chat_id from subscription where chat_id=? and link_id=?", MAPPER, chatId, linkId);
+        return template.queryForObject("select id, link_id, chat_id from subscription where chat_id=? and link_id=?",
+            MAPPER, chatId, linkId);
     }
 
     @Override
     public List<SubscriptionEntity> findByChat(long chatId) {
-        return jdbcTemplate.query("select id, link_id, chat_id from subscription where chat_id=?", MAPPER, chatId);
+        return template.query("select id, link_id, chat_id from subscription where chat_id=?", MAPPER, chatId);
     }
 
     @Override
     public List<SubscriptionEntity> findByLink(long linkId) {
-        return jdbcTemplate.query("select id, link_id, chat_id from subscription where link_id=?", MAPPER, linkId);
+        return template.query("select id, link_id, chat_id from subscription where link_id=?", MAPPER, linkId);
     }
 }

@@ -9,7 +9,7 @@ import ru.tinkoff.edu.java.bot.client.ScrapperClient;
 
 @Configuration
 public class ClientConfiguration {
-    private <WebClientBased> WebClientBased buildWebClient(Class<WebClientBased> clazz, String baseUrl) {
+    private <W> W buildWebClient(Class<W> clazz, String baseUrl) {
         var client = WebClient.builder().baseUrl(baseUrl).build();
         var proxyFactory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();
         return proxyFactory.createClient(clazz);

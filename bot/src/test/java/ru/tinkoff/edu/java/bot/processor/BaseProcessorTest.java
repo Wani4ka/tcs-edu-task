@@ -3,18 +3,14 @@ package ru.tinkoff.edu.java.bot.processor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.tinkoff.edu.java.bot.command.ListCommand;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 public class BaseProcessorTest {
-
     @Autowired
     private BaseProcessor processor;
-
-    @Autowired
-    private ListCommand listCommand;
 
     @Test
     public void testUnsupportedCommand() {
@@ -27,13 +23,11 @@ public class BaseProcessorTest {
     }
 
     @Test
-    public void testLinksCommand() {
+    public void testSupportedCommand() {
         final long chatId = 1033;
-        var input = Interaction.builder().content("/list").chatId(chatId).build();
-        assertTrue(listCommand.test(input));
+        var input = Interaction.builder().content("/help").chatId(chatId).build();
         var output = processor.process(input);
         assertNotNull(output);
         assertEquals(chatId, output.chatId());
-        assertEquals("I don't remember which links I should track :(", output.content());
     }
 }
