@@ -8,9 +8,9 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.processor.TelegramProcessor;
 
@@ -19,8 +19,8 @@ import ru.tinkoff.edu.java.bot.processor.TelegramProcessor;
 public class Telegram {
     private final TelegramBot bot;
     private final TelegramProcessor processor;
-    private final MeterRegistry meterRegistry;
-    private final Counter updatesCounter = meterRegistry.counter("updates_count");
+    @Value("#{updatesCounter}")
+    private final Counter updatesCounter;
 
     @PostConstruct
     public void init() {
