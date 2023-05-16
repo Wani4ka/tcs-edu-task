@@ -9,7 +9,7 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.ChatRepository;
 
 public interface JpaChatRepository extends JpaRepository<ChatEntity, Long>, ChatRepository {
     @Override
-    @Modifying(clearAutomatically = true)
+    @Modifying
     @Query(value = "insert into chat (id) values (:id) on conflict do nothing", nativeQuery = true)
     void add(@Param("id") long id);
 
