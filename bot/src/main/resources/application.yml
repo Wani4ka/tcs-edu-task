@@ -38,7 +38,7 @@ spring:
   application.name: bot
   rabbitmq:
     host: ${QUEUE_HOST}
-    port: ${QUEUE_PORT:#{5672}}
+    port: ${QUEUE_PORT:5672}
     username: ${QUEUE_USERNAME}
     password: ${QUEUE_PASSWORD}
     listener.simple.default-requeue-rejected: false
