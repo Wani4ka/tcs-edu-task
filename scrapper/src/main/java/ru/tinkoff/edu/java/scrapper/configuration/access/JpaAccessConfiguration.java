@@ -9,6 +9,8 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.java.scrapper.domain.repository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.java.scrapper.domain.repository.jpa.JpaSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.*;
+import ru.tinkoff.edu.java.scrapper.service.external.GitHubService;
+import ru.tinkoff.edu.java.scrapper.service.external.StackOverflowService;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaChatService;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jpa.JpaSubscriptionService;

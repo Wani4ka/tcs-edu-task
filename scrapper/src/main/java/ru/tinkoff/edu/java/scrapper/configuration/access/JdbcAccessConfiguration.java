@@ -9,6 +9,8 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcChatRepository;
 import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcLinkRepository;
 import ru.tinkoff.edu.java.scrapper.domain.repository.jdbc.JdbcSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.*;
+import ru.tinkoff.edu.java.scrapper.service.external.GitHubService;
+import ru.tinkoff.edu.java.scrapper.service.external.StackOverflowService;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcChatService;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcSubscriptionService;

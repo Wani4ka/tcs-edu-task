@@ -10,6 +10,8 @@ import ru.tinkoff.edu.java.scrapper.domain.repository.jooq.JooqChatRepository;
 import ru.tinkoff.edu.java.scrapper.domain.repository.jooq.JooqLinkRepository;
 import ru.tinkoff.edu.java.scrapper.domain.repository.jooq.JooqSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.service.*;
+import ru.tinkoff.edu.java.scrapper.service.external.GitHubService;
+import ru.tinkoff.edu.java.scrapper.service.external.StackOverflowService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqChatService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqSubscriptionService;
