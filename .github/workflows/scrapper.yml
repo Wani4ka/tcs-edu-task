@@ -2,7 +2,6 @@ on:
   push:
     paths:
       - 'scrapper/**'
-      - 'scrapper.Dockerfile'
       - '.github/workflows/scrapper.yml'
       - 'link-parser/**'
 
@@ -45,13 +44,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set lower case owner name
-        run: echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+      - name: Store required variables
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+          echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> ${GITHUB_ENV}
         env:
           OWNER: '${{ github.repository_owner }}'
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/tcs-edu-scrapper:latest
-          file: scrapper.Dockerfile
+          tags: ghcr.io/${{ env.OWNER_LC }}/tcs-edu-scrapper:${{ env.BRANCH_NAME }}
+          file: scrapper/Dockerfile
