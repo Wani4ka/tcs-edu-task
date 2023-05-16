@@ -11,11 +11,24 @@ app:
     name: tcs
     routing-key: tcs
 
+management:
+  server.port: 8082
+  endpoints:
+    web:
+      base-path: /
+      exposure.include: ['info', 'health', 'prometheus']
+      path-mapping:
+        prometheus: metrics
+    enabled-by-default: false
+  endpoint:
+    info.enabled: true
+    health.enabled: true
+    prometheus.enabled: true
+  metrics.tags.application: ${spring.application.name}
+
 server:
   port: 8081
 
 spring:
-  rabbitmq:
-    listener:
-      simple:
-        default-requeue-rejected: false
+  application.name: bot
+  rabbitmq.listener.simple.default-requeue-rejected: false
