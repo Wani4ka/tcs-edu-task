@@ -45,3 +45,8 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
+  rabbitmq:
+    host: ${QUEUE_HOST}
+    port: ${QUEUE_PORT}
+    username: ${QUEUE_USERNAME}
+    password: ${QUEUE_PASSWORD}
