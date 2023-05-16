@@ -48,5 +48,3 @@ spring:
   rabbitmq:
     host: ${QUEUE_HOST}
     port: ${QUEUE_PORT:5672}
-    username: ${QUEUE_USERNAME}
-    password: ${QUEUE_PASSWORD}
