@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-alpine
+FROM eclipse-temurin:20-jre-alpine
 COPY target/bot-*.jar bot.jar
 EXPOSE 8081
 EXPOSE 8082
