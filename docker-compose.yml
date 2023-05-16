@@ -1,11 +1,23 @@
 version: '3.9'
 services:
+
+  scrapper:
+    image: ghcr.io/wani4ka/tcs-edu-scrapper:hw10
+    depends_on: ['queue', 'postgresql']
+    env_file: ['.env']
+    networks: ['backend']
+
+  bot:
+    image: ghcr.io/wani4ka/tcs-edu-bot:hw10
+    depends_on: ['queue']
+    env_file: ['.env']
+    networks: ['backend']
+
   queue:
     image: rabbitmq:3-management
     container_name: links_queue
     ports:
       - "15672:15672"
-      - "5672:5672"
     networks: ['backend']
     volumes:
       - queue:/var/lib/rabbitmq
@@ -13,8 +25,6 @@ services:
   postgresql:
     image: postgres:15
     container_name: links_db
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_DB: scrapper
     env_file: ['.env']
