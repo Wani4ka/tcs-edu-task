@@ -3,19 +3,42 @@ services:
 
   scrapper:
     image: ghcr.io/wani4ka/tcs-edu-scrapper:hw10
-    depends_on: ['queue', 'postgresql']
+    container_name: lscrapper
+    healthcheck:
+      test: "wget --no-verbose --tries=1 -qO- localhost:8083/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    depends_on:
+      queue:
+        condition: service_healthy
+      postgresql:
+        condition: service_healthy
+      liquibase-migrations:
+        condition: service_completed_successfully
     env_file: ['.env']
     networks: ['backend']
 
   bot:
     image: ghcr.io/wani4ka/tcs-edu-bot:hw10
-    depends_on: ['queue']
+    container_name: links_bot
+    depends_on:
+      queue:
+        condition: service_healthy
+      scrapper:
+        condition: service_healthy
     env_file: ['.env']
     networks: ['backend']
 
   queue:
     image: rabbitmq:3-management
     container_name: links_queue
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "15672:15672"
     networks: ['backend']
@@ -25,6 +48,11 @@ services:
   postgresql:
     image: postgres:15
     container_name: links_db
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     environment:
       POSTGRES_DB: scrapper
     env_file: ['.env']
