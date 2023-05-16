@@ -55,4 +55,4 @@ jobs:
         with:
           push: true
           tags: ghcr.io/${{ env.OWNER_LC }}/tcs-edu-scrapper:${{ env.BRANCH_NAME }}
-          file: bot/Dockerfile
+          context: bot
