@@ -4,18 +4,39 @@ springdoc:
 
 app:
   scrapper:
-    baseUrl: http://localhost:8080
+    baseUrl: ${SCRAPPER_URL}
   telegram:
     token: ${TG_BOT_TOKEN}
   queue:
     name: tcs
     routing-key: tcs
 
+management:
+  server.port: 8082
+  endpoints:
+    web:
+      base-path: /
+      exposure.include: ['info', 'health', 'prometheus']
+      path-mapping:
+        prometheus: metrics
+    enabled-by-default: false
+  endpoint:
+    info.enabled: true
+    health:
+      enabled: true
+      probes.enabled: true
+      group:
+        readiness.include: db
+        liveness.include: ping
+    prometheus.enabled: true
+  metrics.tags.application: ${spring.application.name}
+
 server:
   port: 8081
 
 spring:
+  application.name: bot
   rabbitmq:
-    listener:
-      simple:
-        default-requeue-rejected: false
+    host: ${QUEUE_HOST}
+    port: ${QUEUE_PORT:5672}
+    listener.simple.default-requeue-rejected: false

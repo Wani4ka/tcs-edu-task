@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.configuration.Scheduler;
 import ru.tinkoff.edu.java.scrapper.domain.entity.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.domain.repository.LinkRepository;
+import ru.tinkoff.edu.java.scrapper.service.external.GitHubService;
+import ru.tinkoff.edu.java.scrapper.service.external.LinkUpdateChecker;
+import ru.tinkoff.edu.java.scrapper.service.external.StackOverflowService;
 import ru.tinkoff.edu.java.url.LinkParser;
 import ru.tinkoff.edu.java.url.link.GitHubLink;
 import ru.tinkoff.edu.java.url.link.StackOverflowLink;
@@ -30,26 +33,19 @@ public class LinkUpdater {
 
     private boolean update(LinkEntity link) {
         var parsed = LinkParser.parseLink(link.getUrl().toString());
-        switch (parsed) {
-            case GitHubLink ghLink -> {
-                var lastUpdate = ghService.getLastUpdate(ghLink.user(), ghLink.repo());
-                if (lastUpdate != null && lastUpdate.getCreatedAt().isAfter(link.getLastEvent())) {
-                    sendUpdate(link, lastUpdate.getCreatedAt(), lastUpdate.getType().getDescription());
-                    return true;
-                }
-                return false;
-            }
-            case StackOverflowLink soLink -> {
-                var question = soService.fetchQuestion(soLink.id()).block();
-                if (question != null && question.lastActivityDate().isAfter(link.getLastEvent())) {
-                    sendUpdate(link, question.lastActivityDate(), "A StackOverflow question updated");
-                    return true;
-                }
-                return false;
-            }
-            case null -> throw new IllegalArgumentException("Invalid link");
-            default -> throw new IllegalStateException("Unexpected value: " + parsed);
+        LinkUpdateChecker.LinkUpdate update;
+        if (parsed instanceof GitHubLink) {
+            update = ghService.checkForUpdates((GitHubLink) parsed, link.getLastEvent());
+        } else if (parsed instanceof StackOverflowLink) {
+            update = soService.checkForUpdates((StackOverflowLink) parsed, link.getLastEvent());
+        } else {
+            throw new IllegalArgumentException("Invalid link");
         }
+        if (update != null) {
+            sendUpdate(link, update.time(), update.description());
+            return true;
+        }
+        return false;
     }
 
     private void sendUpdate(LinkEntity link, OffsetDateTime lastEvent, String description) {

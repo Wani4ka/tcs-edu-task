@@ -13,14 +13,38 @@ app:
     baseUrl: https://api.stackexchange.com/2.3
   bot:
     baseUrl: http://localhost:8081
-  database-access-type: jpa
+  database-access-type: jdbc
   queue:
     name: tcs
     routing-key: tcs
   use-queue: true
 
+management:
+  server.port: 8083
+  endpoints:
+    web:
+      base-path: /
+      exposure.include: ['info', 'health', 'prometheus']
+      path-mapping:
+        prometheus: metrics
+    enabled-by-default: false
+  endpoint:
+    info.enabled: true
+    health:
+      enabled: true
+      probes.enabled: true
+      group:
+        readiness.include: db
+        liveness.include: ping
+    prometheus.enabled: true
+  metrics.tags.application: ${spring.application.name}
+
 spring:
+  application.name: scrapper
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
+  rabbitmq:
+    host: ${QUEUE_HOST}
+    port: ${QUEUE_PORT:5672}
