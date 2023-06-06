@@ -2,7 +2,7 @@ version: '3.9'
 services:
 
   scrapper:
-    image: ghcr.io/wani4ka/tcs-edu-scrapper:hw10
+    image: ghcr.io/wani4ka/tcs-edu-scrapper:main
     container_name: lscrapper
     healthcheck:
       test: "wget --no-verbose --tries=1 -qO- localhost:8083/health | grep UP || exit 1"
@@ -21,7 +21,7 @@ services:
     networks: ['backend']
 
   bot:
-    image: ghcr.io/wani4ka/tcs-edu-bot:hw10
+    image: ghcr.io/wani4ka/tcs-edu-bot:main
     container_name: links_bot
     depends_on:
       queue:
