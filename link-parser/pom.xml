@@ -8,7 +8,6 @@
         <artifactId>tcstask</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>link-parser</artifactId>
 
     <dependencies>
